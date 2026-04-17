@@ -1,0 +1,374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "application_navigation.schema.json",
+  "title": "ArchivingNavigationCorpus",
+  "type": "object",
+  "description": "Canonical application schema for drawing-level navigation with panel-level search and session-aware recommendations. Drawing and panel metadata is grouped under dc:{} (Dublin Core) and archdrw:{} (archdrw ontology) namespaced sections to preserve provenance.",
+  "required": [
+    "schema_version",
+    "drawings"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "Version of the canonical application schema."
+    },
+    "generated_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "corpus_id": {
+      "type": ["string", "null"],
+      "description": "Logical identifier for the corpus or subset represented by this payload."
+    },
+    "drawings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Drawing"
+      }
+    },
+    "panels": {
+      "type": "array",
+      "description": "Optional materialized panel index for direct panel-level retrieval. Panels may also be embedded under each drawing.",
+      "items": {
+        "$ref": "#/$defs/Panel"
+      }
+    },
+    "concepts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Concept"
+      }
+    },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Session"
+      }
+    }
+  },
+  "$defs": {
+    "StringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "EntityRef": {
+      "type": "string",
+      "description": "Stable URI-like reference for an entity within the corpus."
+    },
+    "BoundingBox": {
+      "description": "Panel region in either legacy string form or structured coordinate form.",
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "Legacy bbox encoding such as '0,0,400,600'."
+        },
+        {
+          "type": "object",
+          "required": ["x1", "y1", "x2", "y2", "coordinate_space"],
+          "properties": {
+            "x1": {"type": "number"},
+            "y1": {"type": "number"},
+            "x2": {"type": "number"},
+            "y2": {"type": "number"},
+            "coordinate_space": {
+              "type": "string",
+              "enum": ["pixel", "normalized"]
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "EmbeddingSet": {
+      "type": "object",
+      "description": "Optional vectors or derived numeric features used by similarity services.",
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {"type": "number"}
+        },
+        "image": {
+          "type": "array",
+          "items": {"type": "number"}
+        },
+        "multimodal": {
+          "type": "array",
+          "items": {"type": "number"}
+        }
+      },
+      "additionalProperties": true
+    },
+    "InterestWeight": {
+      "type": "object",
+      "required": ["ref", "weight"],
+      "properties": {
+        "ref": {"$ref": "#/$defs/EntityRef"},
+        "weight": {"type": "number"},
+        "reason": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "ChatTurn": {
+      "type": "object",
+      "required": ["role", "text", "timestamp"],
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["user", "assistant", "system"]
+        },
+        "text": {"type": "string"},
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "InteractionEvent": {
+      "type": "object",
+      "required": ["ref", "timestamp"],
+      "properties": {
+        "ref": {"$ref": "#/$defs/EntityRef"},
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "action": {
+          "type": "string",
+          "enum": ["view", "hover", "pin", "open-panel", "open-drawing", "recommendation-click"]
+        },
+        "source": {
+          "type": ["string", "null"],
+          "enum": ["graph", "preview", "search", "chat", null]
+        }
+      },
+      "additionalProperties": false
+    },
+    "DublinCoreFields": {
+      "type": "object",
+      "description": "Dublin Core metadata fields, prefixed dc:. Maps directly to dc: properties in the dublin_core_terms.ttl ontology.",
+      "properties": {
+        "dc:identifier":   {"type": ["string", "null"]},
+        "dc:title":        {"type": ["string", "null"]},
+        "dc:subject":      {"$ref": "#/$defs/StringArray"},
+        "dc:description":  {"type": ["string", "null"]},
+        "dc:date":         {"type": ["string", "integer", "null"]},
+        "dc:creator":      {"type": ["string", "null"]},
+        "dc:type":         {"type": ["string", "null"]},
+        "dc:format":       {"type": ["string", "null"]},
+        "dc:source":       {"type": ["string", "null"]},
+        "dc:relation":     {"type": ["string", "null"]},
+        "dc:coverage":     {"type": ["string", "null"]},
+        "dc:rights":       {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "ArchdrwDrawingFields": {
+      "type": "object",
+      "description": "archdrw-ontology fields for a drawing/board entity. Maps directly to archdrw: properties in archdrw.ttl.",
+      "properties": {
+        "rdf:type":                   {"$ref": "#/$defs/StringArray"},
+        "archdrw:instanceId":         {"type": ["string", "null"]},
+        "archdrw:competition":        {"type": ["string", "null"]},
+        "archdrw:layoutType":         {"type": ["string", "null"]},
+        "archdrw:boardOrientation":   {"type": ["string", "null"]},
+        "archdrw:boardPage":          {"type": ["integer", "null"]},
+        "archdrw:colorPalette":       {"type": ["string", "null"]},
+        "archdrw:drawingStyle":       {"type": ["string", "null"]},
+        "archdrw:medium":             {"type": ["string", "null"]},
+        "archdrw:projection":         {"type": ["string", "null"]},
+        "archdrw:siteContext":        {"type": ["string", "null"]},
+        "archdrw:containsPanel":      {"$ref": "#/$defs/StringArray"},
+        "archdrw:extensionTerms":     {"$ref": "#/$defs/StringArray"},
+        "archdrw:globalConceptLabels":{"$ref": "#/$defs/StringArray"}
+      },
+      "additionalProperties": false
+    },
+    "ArchdrwPanelFields": {
+      "type": "object",
+      "description": "archdrw-ontology fields for a panel/board-component entity. Maps directly to archdrw: properties in archdrw.ttl.",
+      "properties": {
+        "rdf:type":                       {"$ref": "#/$defs/StringArray"},
+        "archdrw:panelTypeLabel":         {"type": ["string", "null"]},
+        "archdrw:panelTitle":            {"type": ["string", "null"]},
+        "archdrw:panelOrder":            {"type": ["integer", "null"]},
+        "archdrw:spatialScale":          {"type": ["string", "null"]},
+        "archdrw:hasTextTranscript":     {"type": ["string", "null"]},
+        "archdrw:usesGraphicEncoding":   {"$ref": "#/$defs/StringArray"},
+        "rdfs:comment":                  {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "InheritedDrawingContext": {
+      "type": "object",
+      "description": "Drawing-level fields copied onto a panel to support first-class panel indexing without losing board context.",
+      "properties": {
+        "drawing_ref":   {"$ref": "#/$defs/EntityRef"},
+        "instance_id":   {"type": ["string", "null"]},
+        "year":          {"type": ["integer", "string", "null"]},
+        "source_url":    {"type": ["string", "null"], "format": "uri"},
+        "dc": {"$ref": "#/$defs/DublinCoreFields"},
+        "archdrw": {
+          "type": "object",
+          "description": "Subset of drawing-level archdrw fields needed for panel context.",
+          "properties": {
+            "archdrw:competition":         {"type": ["string", "null"]},
+            "archdrw:layoutType":          {"type": ["string", "null"]},
+            "archdrw:boardOrientation":    {"type": ["string", "null"]},
+            "archdrw:globalConceptLabels": {"$ref": "#/$defs/StringArray"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "Drawing": {
+      "type": "object",
+      "required": [
+        "entity_type",
+        "drawing_ref",
+        "instance_id",
+        "source_url",
+        "dc",
+        "archdrw"
+      ],
+      "properties": {
+        "entity_type":   {"const": "drawing"},
+        "drawing_ref":   {"$ref": "#/$defs/EntityRef"},
+        "instance_id":   {"type": "string"},
+        "year":          {"type": ["integer", "string", "null"]},
+        "source_url":    {"type": ["string", "null"], "format": "uri"},
+        "dc":            {"$ref": "#/$defs/DublinCoreFields"},
+        "archdrw":       {"$ref": "#/$defs/ArchdrwDrawingFields"},
+        "panels": {
+          "type": "array",
+          "description": "Embedded panel payload used by UI clients that prefer nested board structures.",
+          "items": {"$ref": "#/$defs/Panel"}
+        },
+        "concept_refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/EntityRef"}
+        },
+        "embeddings": {"$ref": "#/$defs/EmbeddingSet"}
+      },
+      "additionalProperties": false
+    },
+    "Panel": {
+      "type": "object",
+      "required": [
+        "entity_type",
+        "panel_ref",
+        "panel_id",
+        "panel_type_qname",
+        "archdrw"
+      ],
+      "properties": {
+        "entity_type":       {"const": "panel"},
+        "panel_ref":         {"$ref": "#/$defs/EntityRef"},
+        "panel_id":          {"type": "string"},
+        "year":              {"type": ["integer", "string", "null"]},
+        "panel_type_qname":  {"type": "string"},
+        "panel_title":       {"type": ["string", "null"]},
+        "panel_order":       {"type": ["integer", "null"]},
+        "bbox":              {"$ref": "#/$defs/BoundingBox"},
+        "ocr_text":          {"type": ["string", "null"]},
+        "local_description": {"type": ["string", "null"]},
+        "extracted_terms":   {"$ref": "#/$defs/StringArray"},
+        "archdrw":           {"$ref": "#/$defs/ArchdrwPanelFields"},
+        "inherited_context": {"$ref": "#/$defs/InheritedDrawingContext"},
+        "concept_refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/EntityRef"}
+        },
+        "embeddings": {"$ref": "#/$defs/EmbeddingSet"}
+      },
+      "additionalProperties": false
+    },
+    "Concept": {
+      "type": "object",
+      "required": ["entity_type", "concept_ref", "label"],
+      "properties": {
+        "entity_type":  {"const": "concept"},
+        "concept_ref":  {"$ref": "#/$defs/EntityRef"},
+        "label":        {"type": "string"},
+        "qname":        {"type": ["string", "null"]},
+        "concept_type": {
+          "type": "string",
+          "enum": ["ontology", "derived-topic", "session-interest"]
+        },
+        "description":  {"type": ["string", "null"]},
+        "broader_refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/EntityRef"}
+        },
+        "related_refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/EntityRef"}
+        },
+        "supporting_drawing_refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/EntityRef"}
+        },
+        "supporting_panel_refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/EntityRef"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "Session": {
+      "type": "object",
+      "required": ["entity_type", "session_id", "started_at", "updated_at"],
+      "properties": {
+        "entity_type":           {"const": "session"},
+        "session_id":            {"type": "string"},
+        "started_at":            {"type": "string", "format": "date-time"},
+        "updated_at":            {"type": "string", "format": "date-time"},
+        "current_drawing_ref": {
+          "oneOf": [{"$ref": "#/$defs/EntityRef"}, {"type": "null"}]
+        },
+        "current_panel_ref": {
+          "oneOf": [{"$ref": "#/$defs/EntityRef"}, {"type": "null"}]
+        },
+        "prompt_history": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/ChatTurn"}
+        },
+        "viewed_drawings": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/InteractionEvent"}
+        },
+        "viewed_panels": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/InteractionEvent"}
+        },
+        "emphasized_concepts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/InterestWeight"}
+        },
+        "emphasized_panel_types": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["panel_type", "weight"],
+            "properties": {
+              "panel_type": {"type": "string"},
+              "weight":     {"type": "number"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "active_filters": {
+          "type": "object",
+          "description": "UI-facing filter state such as concept constraints, panel types, time range, or similarity basis.",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

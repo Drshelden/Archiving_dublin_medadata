@@ -20,6 +20,7 @@
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
 @prefix archdrw: <https://archivingresearch.org/schema/drawing#> .
@@ -35,6 +36,7 @@ Extends Dublin Core (DC Elements 1.1) with drawing-specific properties and
 controlled value sets.  Designed to be collection-neutral and reusable."""@en ;
     dc:creator   "Kelly" ;
     dc:date      "2026" ;
+    owl:imports  <http://purl.org/dc/terms/> ;
     owl:versionInfo "0.1" .
 
 
@@ -42,10 +44,22 @@ controlled value sets.  Designed to be collection-neutral and reusable."""@en ;
 # CLASSES
 # ═══════════════════════════════════════════════════════════════════════════
 
+archdrw:ArchivalItem
+    a owl:Class ;
+    rdfs:label   "Archival Item"@en ;
+    rdfs:comment "A generic record in the archival corpus, including drawings and text-based artefacts."@en .
+
 archdrw:ArchivalDrawing
     a owl:Class ;
     rdfs:label   "Archival Drawing"@en ;
-    rdfs:comment "A scanned or digitised architectural, urban design, or competition drawing held in an archive."@en .
+    rdfs:comment "A scanned or digitised architectural, urban design, or competition drawing held in an archive."@en ;
+    rdfs:subClassOf archdrw:ArchivalItem .
+
+archdrw:ArchivalText
+    a owl:Class ;
+    rdfs:label   "Archival Text Item"@en ;
+    rdfs:comment "A text-oriented archival image or textual document record in the corpus."@en ;
+    rdfs:subClassOf archdrw:ArchivalItem .
 
 archdrw:DrawingType
     a owl:Class ;
@@ -344,24 +358,40 @@ archdrw:projection
 
 archdrw:competition
     a            owl:DatatypeProperty ;
-    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:domain  archdrw:ArchivalItem ;
     rdfs:range   xsd:string ;
     rdfs:label   "competition"@en ;
     rdfs:comment "The architectural competition or archival collection this drawing belongs to."@en .
 
 archdrw:boardPage
     a            owl:DatatypeProperty ;
-    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:domain  archdrw:ArchivalItem ;
     rdfs:range   xsd:integer ;
     rdfs:label   "board page"@en ;
     rdfs:comment "The page or board number within a multi-board competition entry."@en .
 
 archdrw:instanceId
     a            owl:DatatypeProperty ;
-    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:domain  archdrw:ArchivalItem ;
     rdfs:range   xsd:string ;
     rdfs:label   "instance ID"@en ;
     rdfs:comment "The unique identifier for this drawing record within the digital archive system."@en .
+
+archdrw:projectKey
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalItem ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "project key"@en ;
+    rdfs:comment "A normalized key used in source metadata to group related records by project or competition."@en ;
+    rdfs:subPropertyOf dcterms:relation .
+
+archdrw:sourceFileName
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalItem ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "source file name"@en ;
+    rdfs:comment "Original source filename for the digitised asset."@en ;
+    rdfs:subPropertyOf dcterms:identifier .
 
 
 # ═══════════════════════════════════════════════════════════════════════════

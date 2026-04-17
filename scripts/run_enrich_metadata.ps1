@@ -7,7 +7,7 @@
 #         Saves results → frontend/public/data/enriched_metadata.json
 #
 # Step 2: Converts the enriched JSON to a reusable RDF Turtle file.
-#         Vocabulary defined in: schemas/archival_drawing.ttl
+#         Vocabulary defined in: schemas/_OLD/archival_drawing.ttl
 #         Output → frontend/public/data/archive_drawings.ttl
 #
 # Run this ONCE.  After that, the website loads the pre-generated files at
@@ -76,7 +76,7 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "✓ All done." -ForegroundColor Green
     Write-Host "  Enriched JSON  → frontend/public/data/enriched_metadata.json" -ForegroundColor Green
     Write-Host "  RDF data file  → frontend/public/data/archive_drawings.ttl" -ForegroundColor Green
-    Write-Host "  RDF vocabulary → schemas/archival_drawing.ttl" -ForegroundColor Green
+    Write-Host "  RDF vocabulary → schemas/_OLD/archival_drawing.ttl" -ForegroundColor Green
     Write-Host ""
     Write-Host "Rebuild the frontend to serve the new files:" -ForegroundColor Yellow
     Write-Host "  cd frontend ; npm run build" -ForegroundColor Yellow

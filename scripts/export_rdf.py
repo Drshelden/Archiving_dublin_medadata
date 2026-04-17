@@ -5,7 +5,7 @@ Reads enriched_metadata.json (produced by enrich_metadata.py) and writes a
 Turtle-format RDF file containing one archdrw:ArchivalDrawing instance per
 drawing record.
 
-The output file uses the vocabulary defined in schemas/archival_drawing.ttl.
+The output file uses the vocabulary defined in schemas/_OLD/archival_drawing.ttl.
 It is a DATA file (instances) — the vocabulary itself lives in the schema file.
 
 Output: frontend/public/data/archive_drawings.ttl
@@ -292,7 +292,7 @@ def main() -> None:
     lines.append(f"# archive_drawings.ttl")
     lines.append(f"# Generated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M')} UTC")
     lines.append(f"# Records: {len(records)}")
-    lines.append(f"# Vocabulary: schemas/archival_drawing.ttl")
+    lines.append(f"# Vocabulary: schemas/_OLD/archival_drawing.ttl")
     lines.append("")
     lines.append(f"@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .")
     lines.append(f"@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .")

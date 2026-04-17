@@ -1,0 +1,1722 @@
+﻿@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix archdrw: <https://archivingresearch.org/schema/drawing#> .
+@prefix archgen: <https://archivingresearch.org/schema/drawing/extensions/generated#> .
+
+<https://archivingresearch.org/schema/drawing/extensions/generated>
+    a owl:Ontology ;
+    rdfs:label "Generated Archival Drawing Extensions"@en ;
+    rdfs:comment "Generated extension ontology from random S3 image analysis. Distinct from Dublin Core and base drawing ontology; references them via owl:imports."@en ;
+    dcterms:creator "GitHub Copilot" ;
+    dcterms:date "2026-04-11" ;
+    owl:imports <http://purl.org/dc/terms/> ;
+    owl:imports <https://archivingresearch.org/schema/drawing> ;
+    owl:versionInfo "0.1.0" .
+
+# New Classes
+
+archgen:Anomalies
+    a owl:Class ;
+    rdfs:label "Anomalies"@en ;
+    rdfs:comment "anomalies"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:ArchitecturalCritique
+    a owl:Class ;
+    rdfs:label "ArchitecturalCritique"@en ;
+    rdfs:comment "architectural critique"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:ArchitecturalDesign
+    a owl:Class ;
+    rdfs:label "ArchitecturalDesign"@en ;
+    rdfs:comment "architectural design"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Architecture
+    a owl:Class ;
+    rdfs:label "Architecture"@en ;
+    rdfs:comment "architecture"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:BuildingTechnology
+    a owl:Class ;
+    rdfs:label "BuildingTechnology"@en ;
+    rdfs:comment "building technology"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Circulation
+    a owl:Class ;
+    rdfs:label "Circulation"@en ;
+    rdfs:comment "circulation"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Community
+    a owl:Class ;
+    rdfs:label "Community"@en ;
+    rdfs:comment "community"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:CommunityDevelopment
+    a owl:Class ;
+    rdfs:label "CommunityDevelopment"@en ;
+    rdfs:comment "community development"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:CommunityEngagement
+    a owl:Class ;
+    rdfs:label "CommunityEngagement"@en ;
+    rdfs:comment "community engagement"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:CommunitySignificance
+    a owl:Class ;
+    rdfs:label "CommunitySignificance"@en ;
+    rdfs:comment "community significance"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Competition
+    a owl:Class ;
+    rdfs:label "Competition"@en ;
+    rdfs:comment "competition"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:CompetitionGuidelines
+    a owl:Class ;
+    rdfs:label "CompetitionGuidelines"@en ;
+    rdfs:comment "competition guidelines"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:CompetitionguidelinesArchitecturaldesignPublicspace
+    a owl:Class ;
+    rdfs:label "CompetitionGuidelines,ArchitecturalDesign,PublicSpace"@en ;
+    rdfs:comment "competition guidelines, architectural design, public space"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Connectedness
+    a owl:Class ;
+    rdfs:label "Connectedness"@en ;
+    rdfs:comment "connectedness"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:ConnectednessLogisticsUrbanecology
+    a owl:Class ;
+    rdfs:label "Connectedness,Logistics,UrbanEcology"@en ;
+    rdfs:comment "connectedness, logistics, urban ecology"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:ConnectednessSpatialrelationshipsUrbanexperience
+    a owl:Class ;
+    rdfs:label "Connectedness,SpatialRelationships,UrbanExperience"@en ;
+    rdfs:comment "connectedness, spatial relationships, urban experience"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Containment
+    a owl:Class ;
+    rdfs:label "Containment"@en ;
+    rdfs:comment "containment"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Density
+    a owl:Class ;
+    rdfs:label "Density"@en ;
+    rdfs:comment "density"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:DesignIntent
+    a owl:Class ;
+    rdfs:label "DesignIntent"@en ;
+    rdfs:comment "design intent"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:DesignRequirements
+    a owl:Class ;
+    rdfs:label "DesignRequirements"@en ;
+    rdfs:comment "design requirements"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:EcologicalImpact
+    a owl:Class ;
+    rdfs:label "EcologicalImpact"@en ;
+    rdfs:comment "ecological impact"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Ecology
+    a owl:Class ;
+    rdfs:label "Ecology"@en ;
+    rdfs:comment "ecology"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Education
+    a owl:Class ;
+    rdfs:label "Education"@en ;
+    rdfs:comment "education"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:EnvironmentalArt
+    a owl:Class ;
+    rdfs:label "EnvironmentalArt"@en ;
+    rdfs:comment "environmental art"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:EnvironmentalIntegration
+    a owl:Class ;
+    rdfs:label "EnvironmentalIntegration"@en ;
+    rdfs:comment "environmental integration"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:ExhibitionSpace
+    a owl:Class ;
+    rdfs:label "ExhibitionSpace"@en ;
+    rdfs:comment "exhibition space"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Flexibility
+    a owl:Class ;
+    rdfs:label "Flexibility"@en ;
+    rdfs:comment "flexibility"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Flows
+    a owl:Class ;
+    rdfs:label "Flows"@en ;
+    rdfs:comment "flows"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:FunctionalDesign
+    a owl:Class ;
+    rdfs:label "FunctionalDesign"@en ;
+    rdfs:comment "functional design"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:FunctionalDisplay
+    a owl:Class ;
+    rdfs:label "FunctionalDisplay"@en ;
+    rdfs:comment "functional display"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:FunctionalDistribution
+    a owl:Class ;
+    rdfs:label "FunctionalDistribution"@en ;
+    rdfs:comment "functional distribution"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:FunctionalLayout
+    a owl:Class ;
+    rdfs:label "FunctionalLayout"@en ;
+    rdfs:comment "functional layout"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:FunctionalRelationships
+    a owl:Class ;
+    rdfs:label "FunctionalRelationships"@en ;
+    rdfs:comment "functional relationships"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:FunctionalSpaces
+    a owl:Class ;
+    rdfs:label "FunctionalSpaces"@en ;
+    rdfs:comment "functional spaces"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:FunctionalZones
+    a owl:Class ;
+    rdfs:label "FunctionalZones"@en ;
+    rdfs:comment "functional zones"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:FunctionalZoning
+    a owl:Class ;
+    rdfs:label "FunctionalZoning"@en ;
+    rdfs:comment "functional zoning"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Functions
+    a owl:Class ;
+    rdfs:label "Functions"@en ;
+    rdfs:comment "functions"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:GeographicalRepresentation
+    a owl:Class ;
+    rdfs:label "GeographicalRepresentation"@en ;
+    rdfs:comment "geographical representation"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Growth
+    a owl:Class ;
+    rdfs:label "Growth"@en ;
+    rdfs:comment "growth"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Hierarchies
+    a owl:Class ;
+    rdfs:label "Hierarchies"@en ;
+    rdfs:comment "hierarchies"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:HistoricalContext
+    a owl:Class ;
+    rdfs:label "HistoricalContext"@en ;
+    rdfs:comment "historical context"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:HistoricalSignificance
+    a owl:Class ;
+    rdfs:label "HistoricalSignificance"@en ;
+    rdfs:comment "historical significance"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Integration
+    a owl:Class ;
+    rdfs:label "Integration"@en ;
+    rdfs:comment "integration"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Interaction
+    a owl:Class ;
+    rdfs:label "Interaction"@en ;
+    rdfs:comment "interaction"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Interactivity
+    a owl:Class ;
+    rdfs:label "Interactivity"@en ;
+    rdfs:comment "interactivity"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:InteriorLayout
+    a owl:Class ;
+    rdfs:label "InteriorLayout"@en ;
+    rdfs:comment "interior layout"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:LandscapeIntegration
+    a owl:Class ;
+    rdfs:label "LandscapeIntegration"@en ;
+    rdfs:comment "landscape integration"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:LandscapeTransformation
+    a owl:Class ;
+    rdfs:label "LandscapeTransformation"@en ;
+    rdfs:comment "landscape transformation"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:MechanicalSystems
+    a owl:Class ;
+    rdfs:label "MechanicalSystems"@en ;
+    rdfs:comment "mechanical systems"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Organization
+    a owl:Class ;
+    rdfs:label "Organization"@en ;
+    rdfs:comment "organization"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Perception
+    a owl:Class ;
+    rdfs:label "Perception"@en ;
+    rdfs:comment "perception"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Preservation
+    a owl:Class ;
+    rdfs:label "Preservation"@en ;
+    rdfs:comment "preservation"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Process
+    a owl:Class ;
+    rdfs:label "Process"@en ;
+    rdfs:comment "process"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Production
+    a owl:Class ;
+    rdfs:label "Production"@en ;
+    rdfs:comment "production"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:ProposedCirculation
+    a owl:Class ;
+    rdfs:label "ProposedCirculation"@en ;
+    rdfs:comment "proposed circulation"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:PublicSpace
+    a owl:Class ;
+    rdfs:label "PublicSpace"@en ;
+    rdfs:comment "public space"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:PublicSpaces
+    a owl:Class ;
+    rdfs:label "PublicSpaces"@en ;
+    rdfs:comment "public spaces"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Quantification
+    a owl:Class ;
+    rdfs:label "Quantification"@en ;
+    rdfs:comment "quantification"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Reconstruction
+    a owl:Class ;
+    rdfs:label "Reconstruction"@en ;
+    rdfs:comment "reconstruction"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Relocation
+    a owl:Class ;
+    rdfs:label "Relocation"@en ;
+    rdfs:comment "relocation"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Requirements
+    a owl:Class ;
+    rdfs:label "Requirements"@en ;
+    rdfs:comment "requirements"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Restoration
+    a owl:Class ;
+    rdfs:label "Restoration"@en ;
+    rdfs:comment "restoration"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Revitalization
+    a owl:Class ;
+    rdfs:label "Revitalization"@en ;
+    rdfs:comment "revitalization"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:SensoryExperience
+    a owl:Class ;
+    rdfs:label "SensoryExperience"@en ;
+    rdfs:comment "sensory experience"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:SocialInteractions
+    a owl:Class ;
+    rdfs:label "SocialInteractions"@en ;
+    rdfs:comment "social interactions"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:SpatialExperience
+    a owl:Class ;
+    rdfs:label "SpatialExperience"@en ;
+    rdfs:comment "spatial experience"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:SpatialOrganization
+    a owl:Class ;
+    rdfs:label "SpatialOrganization"@en ;
+    rdfs:comment "spatial organization"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:SpatialRelationships
+    a owl:Class ;
+    rdfs:label "SpatialRelationships"@en ;
+    rdfs:comment "spatial relationships"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:StructuralRelationships
+    a owl:Class ;
+    rdfs:label "StructuralRelationships"@en ;
+    rdfs:comment "structural relationships"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Structures
+    a owl:Class ;
+    rdfs:label "Structures"@en ;
+    rdfs:comment "structures"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Sustainability
+    a owl:Class ;
+    rdfs:label "Sustainability"@en ;
+    rdfs:comment "sustainability"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Transformation
+    a owl:Class ;
+    rdfs:label "Transformation"@en ;
+    rdfs:comment "transformation"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Transitions
+    a owl:Class ;
+    rdfs:label "Transitions"@en ;
+    rdfs:comment "transitions"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:UrbanCirculation
+    a owl:Class ;
+    rdfs:label "UrbanCirculation"@en ;
+    rdfs:comment "urban circulation"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:UrbanDevelopment
+    a owl:Class ;
+    rdfs:label "UrbanDevelopment"@en ;
+    rdfs:comment "urban development"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:UrbanFlows
+    a owl:Class ;
+    rdfs:label "UrbanFlows"@en ;
+    rdfs:comment "urban flows"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:UrbanPlanning
+    a owl:Class ;
+    rdfs:label "UrbanPlanning"@en ;
+    rdfs:comment "urban planning"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:UrbanTopography
+    a owl:Class ;
+    rdfs:label "UrbanTopography"@en ;
+    rdfs:comment "urban topography"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Usage
+    a owl:Class ;
+    rdfs:label "Usage"@en ;
+    rdfs:comment "usage"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Vacancy
+    a owl:Class ;
+    rdfs:label "Vacancy"@en ;
+    rdfs:comment "vacancy"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Zones
+    a owl:Class ;
+    rdfs:label "Zones"@en ;
+    rdfs:comment "zones"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+archgen:Zoning
+    a owl:Class ;
+    rdfs:label "Zoning"@en ;
+    rdfs:comment "zoning"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+# New Properties
+
+archgen:hasArchitecturalSignificance
+    a owl:ObjectProperty ;
+    rdfs:label "hasArchitecturalSignificance"@en ;
+    rdfs:comment "architectural significance"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasArchitecturalStyles
+    a owl:ObjectProperty ;
+    rdfs:label "hasArchitecturalStyles"@en ;
+    rdfs:comment "architectural styles"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasClientRequirements
+    a owl:ObjectProperty ;
+    rdfs:label "hasClientRequirements"@en ;
+    rdfs:comment "client requirements"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasCommunityEngagementDetails
+    a owl:ObjectProperty ;
+    rdfs:label "hasCommunityEngagementDetails"@en ;
+    rdfs:comment "community engagement details"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasCommunityEngagementStrategies
+    a owl:ObjectProperty ;
+    rdfs:label "hasCommunityEngagementStrategies"@en ;
+    rdfs:comment "community engagement strategies"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasCommunityFeedbackMechanisms
+    a owl:ObjectProperty ;
+    rdfs:label "hasCommunityFeedbackMechanisms"@en ;
+    rdfs:comment "community feedback mechanisms"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasCommunityImpactMetrics
+    a owl:ObjectProperty ;
+    rdfs:label "hasCommunityImpactMetrics"@en ;
+    rdfs:comment "community impact metrics"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualApplication
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualApplication"@en ;
+    rdfs:comment "contextual application"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualBackgroundInformation
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualBackgroundInformation"@en ;
+    rdfs:comment "contextual background information"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualInformationAboutTheBridge
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualInformationAboutTheBridge"@en ;
+    rdfs:comment "contextual information about the Bridge"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualInformationAboutThePavilion
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualInformationAboutThePavilion"@en ;
+    rdfs:comment "contextual information about the pavilion"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualRelationships
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualRelationships"@en ;
+    rdfs:comment "contextual relationships"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualRelationshipsBetweenElements
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualRelationshipsBetweenElements"@en ;
+    rdfs:comment "contextual relationships between elements"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualSignificance
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualSignificance"@en ;
+    rdfs:comment "contextual significance"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualSignificanceOfElements
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualSignificanceOfElements"@en ;
+    rdfs:comment "contextual significance of elements"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualUsage
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualUsage"@en ;
+    rdfs:comment "contextual usage"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualUsageOfFacilities
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualUsageOfFacilities"@en ;
+    rdfs:comment "contextual usage of facilities"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasContextualUsageOfSpace
+    a owl:ObjectProperty ;
+    rdfs:label "hasContextualUsageOfSpace"@en ;
+    rdfs:comment "contextual usage of space"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasCulturalContext
+    a owl:ObjectProperty ;
+    rdfs:label "hasCulturalContext"@en ;
+    rdfs:comment "cultural context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasCulturalContextOfTheDesign
+    a owl:ObjectProperty ;
+    rdfs:label "hasCulturalContextOfTheDesign"@en ;
+    rdfs:comment "cultural context of the design"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasCulturalSignificanceOfThePavilion
+    a owl:ObjectProperty ;
+    rdfs:label "hasCulturalSignificanceOfThePavilion"@en ;
+    rdfs:comment "cultural significance of the pavilion"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasCurriculumDetails
+    a owl:ObjectProperty ;
+    rdfs:label "hasCurriculumDetails"@en ;
+    rdfs:comment "curriculum details"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasDetailedPlantSpeciesInformation
+    a owl:ObjectProperty ;
+    rdfs:label "hasDetailedPlantSpeciesInformation"@en ;
+    rdfs:comment "detailed plant species information"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasExactDimensions
+    a owl:ObjectProperty ;
+    rdfs:label "hasExactDimensions"@en ;
+    rdfs:comment "exact dimensions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasemotionalcontextArtisticintent
+    a owl:ObjectProperty ;
+    rdfs:label "hasEmotionalContext,ArtisticIntent"@en ;
+    rdfs:comment "emotional context, artistic intent"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHashistoricalcontextoftheBeforeImage
+    a owl:ObjectProperty ;
+    rdfs:label "hasHistoricalContextOfThe'before'Image"@en ;
+    rdfs:comment "historical context of the 'Before' image"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasprojectSpecificdesignrationale
+    a owl:ObjectProperty ;
+    rdfs:label "hasProject-specificDesignRationale"@en ;
+    rdfs:comment "project-specific design rationale"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificarchitecturaldetailsEnvironmentalconsiderations
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalDetails,EnvironmentalConsiderations"@en ;
+    rdfs:comment "specific architectural details, environmental considerations"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificarchitecturaldetailsHistoricalcontext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalDetails,HistoricalContext"@en ;
+    rdfs:comment "specific architectural details, historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificarchitecturalfeaturesHistoricalcontext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalFeatures,HistoricalContext"@en ;
+    rdfs:comment "specific architectural features, historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificarchitecturalstylesHistoricalcontext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalStyles,HistoricalContext"@en ;
+    rdfs:comment "specific architectural styles, historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificarchitecturalterminologyContextualhistoricalreferences
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTerminology,ContextualHistoricalReferences"@en ;
+    rdfs:comment "specific architectural terminology, contextual historical references"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificarchitecturalterminologyCulturalreferences
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTerminology,CulturalReferences"@en ;
+    rdfs:comment "specific architectural terminology, cultural references"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificarchitecturalterminologyHistoricalcontext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTerminology,HistoricalContext"@en ;
+    rdfs:comment "specific architectural terminology, historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificarchitecturaltermsHistoricalcontextofthecompetition
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTerms,HistoricalContextOfTheCompetition"@en ;
+    rdfs:comment "specific architectural terms, historical context of the competition"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHasspecificecologicalimpactsDetailedbiosolidstatistics
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificEcologicalImpacts,DetailedBiosolidStatistics"@en ;
+    rdfs:comment "specific ecological impacts, detailed biosolid statistics"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHastemporalaspectsofthepavilionSuse
+    a owl:ObjectProperty ;
+    rdfs:label "hasTemporalAspectsOfThePavilion'sUse"@en ;
+    rdfs:comment "temporal aspects of the pavilion's use"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHistoricalContext
+    a owl:ObjectProperty ;
+    rdfs:label "hasHistoricalContext"@en ;
+    rdfs:comment "historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHistoricalContextOfConeyIsland
+    a owl:ObjectProperty ;
+    rdfs:label "hasHistoricalContextOfConeyIsland"@en ;
+    rdfs:comment "historical context of Coney Island"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHistoricalContextOfTheBuilding
+    a owl:ObjectProperty ;
+    rdfs:label "hasHistoricalContextOfTheBuilding"@en ;
+    rdfs:comment "historical context of the building"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHistoricalContextOfTheCompetition
+    a owl:ObjectProperty ;
+    rdfs:label "hasHistoricalContextOfTheCompetition"@en ;
+    rdfs:comment "historical context of the competition"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasHistoricalContextOfTheSite
+    a owl:ObjectProperty ;
+    rdfs:label "hasHistoricalContextOfTheSite"@en ;
+    rdfs:comment "historical context of the site"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasLightingEffects
+    a owl:ObjectProperty ;
+    rdfs:label "hasLightingEffects"@en ;
+    rdfs:comment "lighting effects"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasLocalCulturalReferences
+    a owl:ObjectProperty ;
+    rdfs:label "hasLocalCulturalReferences"@en ;
+    rdfs:comment "local cultural references"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasLocalEconomicStrategies
+    a owl:ObjectProperty ;
+    rdfs:label "hasLocalEconomicStrategies"@en ;
+    rdfs:comment "local economic strategies"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasMaterialSpecifications
+    a owl:ObjectProperty ;
+    rdfs:label "hasMaterialSpecifications"@en ;
+    rdfs:comment "material specifications"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalDesignElementsNotDetailed
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalDesignElementsNotDetailed"@en ;
+    rdfs:comment "specific architectural design elements not detailed"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalDesignRequirements
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalDesignRequirements"@en ;
+    rdfs:comment "specific architectural design requirements"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalDetails
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalDetails"@en ;
+    rdfs:comment "specific architectural details"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalDetailsAndHistoricalContext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalDetailsAndHistoricalContext"@en ;
+    rdfs:comment "specific architectural details and historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalDetailsOfTheMotionPictureStudio
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalDetailsOfTheMotionPictureStudio"@en ;
+    rdfs:comment "specific architectural details of the motion picture studio"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalFeaturesAndMaterials
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalFeaturesAndMaterials"@en ;
+    rdfs:comment "specific architectural features and materials"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalFeaturesAndTheirFunctions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalFeaturesAndTheirFunctions"@en ;
+    rdfs:comment "specific architectural features and their functions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalFeaturesNotDetailed
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalFeaturesNotDetailed"@en ;
+    rdfs:comment "specific architectural features not detailed"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalFeaturesNotLabeled
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalFeaturesNotLabeled"@en ;
+    rdfs:comment "specific architectural features not labeled"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalStyles
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalStyles"@en ;
+    rdfs:comment "specific architectural styles"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalTerminology
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTerminology"@en ;
+    rdfs:comment "specific architectural terminology"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalTerminologyAndContext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTerminologyAndContext"@en ;
+    rdfs:comment "specific architectural terminology and context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalTerminologyRelatedToDesignIntentAndSpatialRelationships
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTerminologyRelatedToDesignIntentAndSpatialRelationships"@en ;
+    rdfs:comment "specific architectural terminology related to design intent and spatial relationships"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalTerms
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTerms"@en ;
+    rdfs:comment "specific architectural terms"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalTermsAndConditionsNotCaptured
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTermsAndConditionsNotCaptured"@en ;
+    rdfs:comment "specific architectural terms and conditions not captured"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificArchitecturalTermsAndDimensions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificArchitecturalTermsAndDimensions"@en ;
+    rdfs:comment "specific architectural terms and dimensions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificBuildingNames
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificBuildingNames"@en ;
+    rdfs:comment "specific building names"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificCommunityEngagementStrategies
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificCommunityEngagementStrategies"@en ;
+    rdfs:comment "specific community engagement strategies"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificConstructionTechniques
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificConstructionTechniques"@en ;
+    rdfs:comment "specific construction techniques"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificDesignElementsAndTheirHistoricalContext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificDesignElementsAndTheirHistoricalContext"@en ;
+    rdfs:comment "specific design elements and their historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificDesignIntent
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificDesignIntent"@en ;
+    rdfs:comment "specific design intent"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificDesignIntentions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificDesignIntentions"@en ;
+    rdfs:comment "specific design intentions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificDesignIntentionsAndUserInteractions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificDesignIntentionsAndUserInteractions"@en ;
+    rdfs:comment "specific design intentions and user interactions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificDesignMethodologies
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificDesignMethodologies"@en ;
+    rdfs:comment "specific design methodologies"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificDesignRequirementsAndDimensions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificDesignRequirementsAndDimensions"@en ;
+    rdfs:comment "specific design requirements and dimensions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificDetailsAboutTheArchitecturalStyleAndHistoricalContext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificDetailsAboutTheArchitecturalStyleAndHistoricalContext"@en ;
+    rdfs:comment "specific details about the architectural style and historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificEcologicalFeatures
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificEcologicalFeatures"@en ;
+    rdfs:comment "specific ecological features"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificEcologicalImpacts
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificEcologicalImpacts"@en ;
+    rdfs:comment "specific ecological impacts"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificEcologicalInteractions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificEcologicalInteractions"@en ;
+    rdfs:comment "specific ecological interactions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificEcologicalInterventions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificEcologicalInterventions"@en ;
+    rdfs:comment "specific ecological interventions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificEnvironmentalImpactConsiderations
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificEnvironmentalImpactConsiderations"@en ;
+    rdfs:comment "specific environmental impact considerations"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificEnvironmentalImpacts
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificEnvironmentalImpacts"@en ;
+    rdfs:comment "specific environmental impacts"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificGeographicFeaturesNotLabeled
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificGeographicFeaturesNotLabeled"@en ;
+    rdfs:comment "specific geographic features not labeled"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificHabitatDetails
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificHabitatDetails"@en ;
+    rdfs:comment "specific habitat details"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificHistoricalContext
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificHistoricalContext"@en ;
+    rdfs:comment "specific historical context"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificImplementationStrategies
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificImplementationStrategies"@en ;
+    rdfs:comment "specific implementation strategies"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificMaterialDescriptions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificMaterialDescriptions"@en ;
+    rdfs:comment "specific material descriptions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificMaterialSpecifications
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificMaterialSpecifications"@en ;
+    rdfs:comment "specific material specifications"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificMetadataAboutTheIndividualsDepicted
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificMetadataAboutTheIndividualsDepicted"@en ;
+    rdfs:comment "specific metadata about the individuals depicted"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificMetadataRelatedToTheContextOfTheImages
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificMetadataRelatedToTheContextOfTheImages"@en ;
+    rdfs:comment "specific metadata related to the context of the images"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificMethodologiesForUrbanPlanning
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificMethodologiesForUrbanPlanning"@en ;
+    rdfs:comment "specific methodologies for urban planning"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificNeighborhoodIdentities
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificNeighborhoodIdentities"@en ;
+    rdfs:comment "specific neighborhood identities"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificOperationalDetailsOfTheLayout
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificOperationalDetailsOfTheLayout"@en ;
+    rdfs:comment "specific operational details of the layout"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificProjectDetails
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificProjectDetails"@en ;
+    rdfs:comment "specific project details"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificProjectGoals
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificProjectGoals"@en ;
+    rdfs:comment "specific project goals"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificSensoryExperiencesNotCapturedByStandardVocabulary
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificSensoryExperiencesNotCapturedByStandardVocabulary"@en ;
+    rdfs:comment "specific sensory experiences not captured by standard vocabulary"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificSiteDetails
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificSiteDetails"@en ;
+    rdfs:comment "specific site details"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificSitePlanDetails
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificSitePlanDetails"@en ;
+    rdfs:comment "specific site plan details"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificUrbanDesignStrategies
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificUrbanDesignStrategies"@en ;
+    rdfs:comment "specific urban design strategies"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificUrbanDesignTerminology
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificUrbanDesignTerminology"@en ;
+    rdfs:comment "specific urban design terminology"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificUrbanEngagementStrategies
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificUrbanEngagementStrategies"@en ;
+    rdfs:comment "specific urban engagement strategies"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificUrbanPlanningTerminology
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificUrbanPlanningTerminology"@en ;
+    rdfs:comment "specific urban planning terminology"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasSpecificUserInteractions
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificUserInteractions"@en ;
+    rdfs:comment "specific user interactions"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasTemporalChangesInLandscape
+    a owl:ObjectProperty ;
+    rdfs:label "hasTemporalChangesInLandscape"@en ;
+    rdfs:comment "temporal changes in landscape"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasUserExperienceConsiderations
+    a owl:ObjectProperty ;
+    rdfs:label "hasUserExperienceConsiderations"@en ;
+    rdfs:comment "user experience considerations"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasUserExperienceElements
+    a owl:ObjectProperty ;
+    rdfs:label "hasUserExperienceElements"@en ;
+    rdfs:comment "user experience elements"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasUserExperienceNarratives
+    a owl:ObjectProperty ;
+    rdfs:label "hasUserExperienceNarratives"@en ;
+    rdfs:comment "user experience narratives"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+archgen:hasUserInteractionScenarios
+    a owl:ObjectProperty ;
+    rdfs:label "hasUserInteractionScenarios"@en ;
+    rdfs:comment "user interaction scenarios"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .
+
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+# ARCHDRW SCHEMA EXTENSIONS
+# Merged from archival_drawing_revised_extended.ttl (v0.2)
+# These terms extend the base archdrw: ontology with richer vocabulary for
+# presentation boards, panel characterizations, urban analysis, and
+# competition documents.
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# PART I: ANALYTICAL / URBAN DESIGN PRESENTATION BOARDS
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+# â”€â”€ Classes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+archdrw:PresentationBoard
+    a owl:Class ;
+    rdfs:label "Presentation Board"@en ;
+    rdfs:comment "A composed competition or studio board containing multiple panels, diagrams, maps, text blocks, legends, and graphic annotations arranged on a single sheet."@en ;
+    rdfs:subClassOf archdrw:ArchivalDrawing .
+
+archdrw:BoardComponent
+    a owl:Class ;
+    rdfs:label "Board Component"@en ;
+    rdfs:comment "A discrete component within a presentation board, such as a panel, diagram, map, legend, text block, or inset."@en .
+
+archdrw:Panel
+    a owl:Class ;
+    rdfs:label "Panel"@en ;
+    rdfs:comment "A bounded visual region of a presentation board."@en ;
+    rdfs:subClassOf archdrw:BoardComponent .
+
+archdrw:InsetPanel
+    a owl:Class ;
+    rdfs:label "Inset Panel"@en ;
+    rdfs:comment "A secondary zoomed or embedded panel placed within or over a larger panel."@en ;
+    rdfs:subClassOf archdrw:Panel .
+
+archdrw:MapPanel
+    a owl:Class ;
+    rdfs:label "Map Panel"@en ;
+    rdfs:comment "A panel centered on cartographic or urban fabric representation."@en ;
+    rdfs:subClassOf archdrw:Panel .
+
+archdrw:DiagramPanel
+    a owl:Class ;
+    rdfs:label "Diagram Panel"@en ;
+    rdfs:comment "A panel presenting abstract, schematic, or process-oriented diagrams."@en ;
+    rdfs:subClassOf archdrw:Panel .
+
+archdrw:TextBlock
+    a owl:Class ;
+    rdfs:label "Text Block"@en ;
+    rdfs:comment "A prose or explanatory text region on a board."@en ;
+    rdfs:subClassOf archdrw:BoardComponent .
+
+archdrw:Legend
+    a owl:Class ;
+    rdfs:label "Legend"@en ;
+    rdfs:comment "A key explaining symbols, colors, or categories used on a board."@en ;
+    rdfs:subClassOf archdrw:BoardComponent .
+
+archdrw:AbstractionSequence
+    a owl:Class ;
+    rdfs:label "Abstraction Sequence"@en ;
+    rdfs:comment "A staged decomposition or transformation sequence, such as buildings â†’ blocks â†’ void â†’ abstract figure."@en ;
+    rdfs:subClassOf archdrw:BoardComponent .
+
+archdrw:UrbanEntity
+    a owl:Class ;
+    rdfs:label "Urban Entity"@en ;
+    rdfs:comment "A city-scale object, structure, space, or region represented in a board."@en .
+
+archdrw:UrbanAnomaly
+    a owl:Class ;
+    rdfs:label "Urban Anomaly"@en ;
+    rdfs:comment "A non-conforming or exceptional urban condition identified analytically, such as a corridor, cut, discontinuity, or irregularity in the urban grid."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:VoidSpace
+    a owl:Class ;
+    rdfs:label "Void Space"@en ;
+    rdfs:comment "An extracted or identified absence, gap, residual corridor, or negative urban space."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:UrbanGridCondition
+    a owl:Class ;
+    rdfs:label "Urban Grid Condition"@en ;
+    rdfs:comment "A condition or reading of the street/grid structure, including regularity, irregularity, deviation, or compression."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:ConnectivitySystem
+    a owl:Class ;
+    rdfs:label "Connectivity System"@en ;
+    rdfs:comment "A circulation or linkage system represented in the board, including street, subway, rail, highway, landscape, or hydrological connections."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:InfrastructureLayer
+    a owl:Class ;
+    rdfs:label "Infrastructure Layer"@en ;
+    rdfs:comment "A represented infrastructural layer, such as underground transit, surface streets, or elevated transport."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:LandscapeLayer
+    a owl:Class ;
+    rdfs:label "Landscape Layer"@en ;
+    rdfs:comment "A represented ecological or open-space layer such as greenspace, waterfront, or topographic surface."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:MapLayer
+    a owl:Class ;
+    rdfs:label "Map Layer"@en ;
+    rdfs:comment "A semantic layer in a map-based representation, such as water, greenspace, urban fabric, anomalies, or infrastructure."@en .
+
+archdrw:GraphicEncoding
+    a owl:Class ;
+    rdfs:label "Graphic Encoding"@en ;
+    rdfs:comment "A visual encoding used to distinguish information, such as highlight color, line weight, hatch, opacity, or tonal contrast."@en .
+
+# â”€â”€ Additional drawing type values â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+archdrw:AnalyticalBoard
+    a archdrw:DrawingType ;
+    rdfs:label "Analytical Board"@en ;
+    skos:definition "A composed board devoted primarily to analysis, explanation, and synthesis rather than direct depiction alone."@en .
+
+archdrw:UrbanAnalysisMap
+    a archdrw:DrawingType ;
+    rdfs:label "Urban Analysis Map"@en ;
+    skos:definition "A map-based analytical drawing highlighting spatial patterns, systems, or exceptions at the urban scale."@en .
+
+archdrw:ProcessDiagram
+    a archdrw:DrawingType ;
+    rdfs:label "Process Diagram"@en ;
+    skos:definition "A diagram showing a sequence of analytical or design operations."@en .
+
+archdrw:ExplodedAbstraction
+    a archdrw:DrawingType ;
+    rdfs:label "Exploded Abstraction"@en ;
+    skos:definition "A staged abstraction separating a represented condition into components or levels of simplification."@en .
+
+# â”€â”€ Additional visual element values â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+archdrw:UrbanFabric
+    a archdrw:VisualElement ; rdfs:label "Urban Fabric"@en .
+
+archdrw:BuildingFootprints
+    a archdrw:VisualElement ; rdfs:label "Building Footprints"@en .
+
+archdrw:Blocks
+    a archdrw:VisualElement ; rdfs:label "Urban Blocks"@en .
+
+archdrw:VoidDiagram
+    a archdrw:VisualElement ; rdfs:label "Void Diagram"@en .
+
+archdrw:AnomalyHighlight
+    a archdrw:VisualElement ; rdfs:label "Anomaly Highlight"@en .
+
+archdrw:LegendKey
+    a archdrw:VisualElement ; rdfs:label "Legend / Symbol Key"@en .
+
+archdrw:InsetFrame
+    a archdrw:VisualElement ; rdfs:label "Inset Frame / Callout Box"@en .
+
+archdrw:CalloutLine
+    a archdrw:VisualElement ; rdfs:label "Callout / Leader Line"@en .
+
+archdrw:TransitLine
+    a archdrw:VisualElement ; rdfs:label "Transit Line"@en .
+
+archdrw:RailInfrastructure
+    a archdrw:VisualElement ; rdfs:label "Rail Infrastructure"@en .
+
+archdrw:HighwayInfrastructure
+    a archdrw:VisualElement ; rdfs:label "Highway Infrastructure"@en .
+
+archdrw:Greenspace
+    a archdrw:VisualElement ; rdfs:label "Greenspace"@en .
+
+archdrw:ColorCodedOverlay
+    a archdrw:VisualElement ; rdfs:label "Color-Coded Overlay"@en .
+
+archdrw:SequentialDiagramSet
+    a archdrw:VisualElement ; rdfs:label "Sequential Diagram Set"@en .
+
+# â”€â”€ Additional building / project program values â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+archdrw:RegionalPlanning
+    a archdrw:BuildingProgram ; rdfs:label "Regional Planning"@en .
+
+archdrw:TransitInfrastructure
+    a archdrw:BuildingProgram ; rdfs:label "Transit Infrastructure"@en .
+
+archdrw:OpenSpaceNetwork
+    a archdrw:BuildingProgram ; rdfs:label "Open Space Network"@en .
+
+# â”€â”€ Controlled instances for common layers / systems â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+archdrw:WaterLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Water Layer"@en .
+
+archdrw:GreenspaceLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Greenspace Layer"@en .
+
+archdrw:UrbanFabricLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Urban Fabric Layer"@en .
+
+archdrw:MajorAnomalyLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Major Anomaly Layer"@en .
+
+archdrw:MinorAnomalyLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Minor Anomaly Layer"@en .
+
+archdrw:SurfaceStreetSystem
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Surface Street System"@en .
+
+archdrw:UndergroundTransitSystem
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Underground Transit System"@en .
+
+archdrw:ElevatedRailSystem
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Elevated Rail System"@en .
+
+archdrw:ElevatedHighwaySystem
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Elevated Highway System"@en .
+
+archdrw:GreenspaceNetwork
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Greenspace Network"@en .
+
+# â”€â”€ Object properties â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+archdrw:hasComponent
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range archdrw:BoardComponent ;
+    rdfs:label "has component"@en ;
+    rdfs:comment "Relates a presentation board to one of its constituent components."@en ;
+    owl:inverseOf archdrw:isComponentOf .
+
+archdrw:isComponentOf
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range archdrw:PresentationBoard ;
+    rdfs:label "is component of"@en ;
+    rdfs:comment "Relates a component to the board of which it forms part."@en .
+
+archdrw:containsPanel
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range archdrw:Panel ;
+    rdfs:label "contains panel"@en ;
+    rdfs:comment "Specifies that a board contains a panel."@en ;
+    rdfs:subPropertyOf archdrw:hasComponent .
+
+archdrw:containsInset
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:Panel ;
+    rdfs:range archdrw:InsetPanel ;
+    rdfs:label "contains inset"@en ;
+    rdfs:comment "Specifies that a panel contains an inset or zoomed embedded panel."@en .
+
+archdrw:hasLegend
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range archdrw:Legend ;
+    rdfs:label "has legend"@en ;
+    rdfs:comment "Associates a board with a legend or key."@en ;
+    rdfs:subPropertyOf archdrw:hasComponent .
+
+archdrw:hasTextBlock
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range archdrw:TextBlock ;
+    rdfs:label "has text block"@en ;
+    rdfs:comment "Associates a board with an explanatory text region."@en ;
+    rdfs:subPropertyOf archdrw:hasComponent .
+
+archdrw:depictsUrbanEntity
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:UrbanEntity ;
+    rdfs:label "depicts urban entity"@en ;
+    rdfs:comment "Links a drawing to an urban-scale entity, condition, or system it depicts or analyses."@en .
+
+archdrw:identifiesAnomaly
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:UrbanAnomaly ;
+    rdfs:label "identifies anomaly"@en ;
+    rdfs:comment "Links a drawing to an anomaly explicitly identified in the analytical content."@en .
+
+archdrw:showsLayer
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:MapPanel ;
+    rdfs:range archdrw:MapLayer ;
+    rdfs:label "shows layer"@en ;
+    rdfs:comment "Indicates that a map panel contains or emphasizes a semantic map layer."@en .
+
+archdrw:highlightsSystem
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:ConnectivitySystem ;
+    rdfs:label "highlights system"@en ;
+    rdfs:comment "Indicates a circulation, landscape, or infrastructure system made explicit in the drawing."@en .
+
+archdrw:abstractsFrom
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:AbstractionSequence ;
+    rdfs:range archdrw:UrbanEntity ;
+    rdfs:label "abstracts from"@en ;
+    rdfs:comment "Specifies the source condition or entity from which an abstraction sequence is derived."@en .
+
+archdrw:usesGraphicEncoding
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range archdrw:GraphicEncoding ;
+    rdfs:label "uses graphic encoding"@en ;
+    rdfs:comment "Relates a board component to the graphic device used to structure or distinguish information."@en .
+
+archdrw:hasSequenceStage
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:AbstractionSequence ;
+    rdfs:range archdrw:BoardComponent ;
+    rdfs:label "has sequence stage"@en ;
+    rdfs:comment "Relates an abstraction sequence to one of its stages."@en .
+
+archdrw:precedesStage
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range archdrw:BoardComponent ;
+    rdfs:label "precedes stage"@en ;
+    rdfs:comment "Specifies ordered succession among stages within a diagrammatic sequence."@en .
+
+# â”€â”€ Datatype properties â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+archdrw:layoutType
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range xsd:string ;
+    rdfs:label "layout type"@en ;
+    rdfs:comment "The overall compositional strategy of the board, for example multi-panel, central-map-with-insets, columnar, or montage."@en .
+
+archdrw:boardOrientation
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range xsd:string ;
+    rdfs:label "board orientation"@en ;
+    rdfs:comment "The overall board orientation, typically portrait, landscape, or square."@en .
+
+archdrw:panelTitle
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range xsd:string ;
+    rdfs:label "panel title"@en ;
+    rdfs:comment "A title, heading, or caption printed within a board component."@en .
+
+archdrw:panelOrder
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range xsd:integer ;
+    rdfs:label "panel order"@en ;
+    rdfs:comment "Relative ordering of panels or sequence stages within the board composition."@en .
+
+archdrw:spatialScale
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range xsd:string ;
+    rdfs:label "spatial scale"@en ;
+    rdfs:comment "The principal geographic or design scale addressed, such as region, city, district, neighborhood, site, or building."@en .
+
+archdrw:analysisFocus
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range xsd:string ;
+    rdfs:label "analysis focus"@en ;
+    rdfs:comment "The main analytical concern of the board, such as connectivity, void extraction, infrastructure layering, urban morphology, or circulation."@en .
+
+archdrw:urbanContext
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range xsd:string ;
+    rdfs:label "urban context"@en ;
+    rdfs:comment "Urban context descriptors such as gridded city, river corridor, dense fabric, postindustrial landscape, or metropolitan core."@en .
+
+archdrw:hasTextTranscript
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:TextBlock ;
+    rdfs:range xsd:string ;
+    rdfs:label "has text transcript"@en ;
+    rdfs:comment "A transcription of prose or explanatory text visible on the board."@en .
+
+archdrw:legendLabel
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:Legend ;
+    rdfs:range xsd:string ;
+    rdfs:label "legend label"@en ;
+    rdfs:comment "A textual label used in a legend, such as major anomalies or minor anomalies."@en .
+
+archdrw:dominantShape
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:UrbanEntity ;
+    rdfs:range xsd:string ;
+    rdfs:label "dominant shape"@en ;
+    rdfs:comment "A coarse formal descriptor such as linear, branching, clustered, corridor-like, nodal, or fragmented."@en .
+
+archdrw:lineageStep
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range xsd:string ;
+    rdfs:label "lineage step"@en ;
+    rdfs:comment "A named step within an abstraction lineage, for example buildings, blocks, void, or abstract."@en .
+
+archdrw:highlightColor
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:GraphicEncoding ;
+    rdfs:range xsd:string ;
+    rdfs:label "highlight color"@en ;
+    rdfs:comment "A named highlight color used semantically in the board, for example red for major anomalies, green for greenspace, blue for water."@en .
+
+archdrw:lineWeightCategory
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:GraphicEncoding ;
+    rdfs:range xsd:string ;
+    rdfs:label "line weight category"@en ;
+    rdfs:comment "A coarse descriptor of line emphasis such as fine, medium, bold, or heavy."@en .
+
+archdrw:usesColorSemantic
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "uses color semantic"@en ;
+    rdfs:comment "Indicates whether color is used semantically to encode different classes of information rather than decoratively alone."@en .
+
+
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# PART II: COMPETITION BRIEFS AND ARCHITECTURAL SUBMISSION BOARDS
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+# â”€â”€ Classes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+archdrw:CompetitionDocument
+    a owl:Class ;
+    rdfs:label "Competition Document"@en ;
+    rdfs:comment "A textual or graphic archival item associated with a design competition, prize, fellowship, or studio review process."@en ;
+    rdfs:subClassOf archdrw:ArchivalItem .
+
+archdrw:CompetitionBrief
+    a owl:Class ;
+    rdfs:label "Competition Brief"@en ;
+    rdfs:comment "A written competition circular or program statement specifying the design problem, site, requirements, submission instructions, and schedule."@en ;
+    rdfs:subClassOf archdrw:ArchivalText , archdrw:CompetitionDocument .
+
+archdrw:CompetitionSubmissionBoard
+    a owl:Class ;
+    rdfs:label "Competition Submission Board"@en ;
+    rdfs:comment "A presentation sheet submitted as part of a competition, fellowship, or prize sequence."@en ;
+    rdfs:subClassOf archdrw:PresentationBoard , archdrw:CompetitionDocument .
+
+archdrw:ViewPanel
+    a owl:Class ;
+    rdfs:label "View Panel"@en ;
+    rdfs:comment "A panel representing a specific named view, such as a service elevation, street elevation, section, or axonometric."@en ;
+    rdfs:subClassOf archdrw:Panel .
+
+archdrw:ElevationPanel
+    a owl:Class ;
+    rdfs:label "Elevation Panel"@en ;
+    rdfs:comment "A panel presenting an elevation view of a building facade or exterior face."@en ;
+    rdfs:subClassOf archdrw:ViewPanel .
+

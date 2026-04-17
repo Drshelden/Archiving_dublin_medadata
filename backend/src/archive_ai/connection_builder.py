@@ -153,6 +153,11 @@ def _write_region_crop(image_path: str, region: Dict, output_path: Path) -> None
 
 
 def build_connections(records: List[Dict], embeddings: np.ndarray) -> Dict:
+    def _norm_id(value: object) -> str:
+        if value is None:
+            return ""
+        return str(value).strip()
+
     if EXPORT_REGION_CROPS:
         OUTPUT_REGION_CROPS_DIR.mkdir(parents=True, exist_ok=True)
         for old in OUTPUT_REGION_CROPS_DIR.glob("*.jpg"):
@@ -160,8 +165,12 @@ def build_connections(records: List[Dict], embeddings: np.ndarray) -> Dict:
 
     graph = nx.Graph()
     for idx, rec in enumerate(records):
+        instance_id = _norm_id(rec.get("instance_id"))
+        if not instance_id:
+            continue
+
         graph.add_node(
-            rec["instance_id"],
+            instance_id,
             image_id=rec["image_id"],
             title=rec["title"],
             type=rec.get("type", "drawing"),
@@ -178,6 +187,11 @@ def build_connections(records: List[Dict], embeddings: np.ndarray) -> Dict:
     for i, j, semantic_score in candidates:
         a = records[i]
         b = records[j]
+
+        src = _norm_id(a.get("instance_id"))
+        tgt = _norm_id(b.get("instance_id"))
+        if not src or not tgt or src == tgt:
+            continue
 
         metadata_score = _metadata_overlap_score(a, b)
         ocr_score = _ocr_overlap_score(a, b)
@@ -324,9 +338,6 @@ def build_connections(records: List[Dict], embeddings: np.ndarray) -> Dict:
                 "shared subject tags or catalog categories"
             )
             edge_sources.append("metadata_matcher")
-
-        src = a["instance_id"]
-        tgt = b["instance_id"]
 
         graph.add_edge(src, tgt, weight=total, connection_types=types)
         edge_payloads.append(

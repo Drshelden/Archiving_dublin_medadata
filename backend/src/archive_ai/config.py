@@ -5,7 +5,7 @@ ROOT = Path(__file__).resolve().parents[3]
 INPUT_LINKS_FILE = ROOT / "all-s3-links.txt"
 INPUT_ARCHIVE_DATA_FILE = ROOT / "archive-data.js"
 INPUT_ARCHIVE_ALLITEMS_FILE = ROOT / "allitems.json"
-INPUT_DUBLIN_CORE_TTL = ROOT / "dublin_core_terms.ttl"
+INPUT_DUBLIN_CORE_TTL = ROOT / "schemas" / "dublin_core_terms.ttl"
 
 DATA_DIR = ROOT / "backend" / "data"
 CACHE_DIR = DATA_DIR / "cache"

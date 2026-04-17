@@ -15,7 +15,7 @@ This project builds an interactive, region-aware archive web for ~3,000 drawing 
   - `id`, `url`, `filename`, `title`, `displayTitle`, `year`, `page`, `type`, `projectKey`, `tags`, `relatedCount`
 - Parser behavior: extracts the JSON array from the assignment and merges by filename with URL list.
 
-### dublin_core_terms.ttl
+### schemas/dublin_core_terms.ttl
 - Format: RDF Turtle vocabulary file.
 - Parser: `rdflib`
 - Backbone fields extracted into internal schema:
@@ -122,9 +122,9 @@ Create backend env vars first:
 At project root:
 - `all-s3-links.txt`
 - `archive-data.js`
-- `dublin_core_terms.ttl`
+- `schemas/dublin_core_terms.ttl`
 
-The backend config expects these exact root filenames.
+The backend config expects the Dublin Core vocabulary under `schemas/`.
 
 ## 8) Notes and Practical Decisions
 

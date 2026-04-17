@@ -1,4 +1,44 @@
-export default function MetadataPanel({ image, drawingDisplayName, archiveSecondaryLine }) {
+import { useEffect, useState } from 'react';
+import { fetchSimilarDrawings } from '../utils/backendApi';
+
+export default function MetadataPanel({ image, drawingDisplayName, archiveSecondaryLine, onOpenDrawing }) {
+  const [similar, setSimilar] = useState([]);
+  const [similarError, setSimilarError] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadSimilar() {
+      if (!image?.instance_id) {
+        setSimilar([]);
+        setSimilarError('');
+        return;
+      }
+
+      try {
+        const payload = await fetchSimilarDrawings({ instanceId: image.instance_id, topK: 6 });
+        if (cancelled) return;
+
+        if (payload?.ok) {
+          setSimilar(Array.isArray(payload.results) ? payload.results : []);
+          setSimilarError('');
+        } else {
+          setSimilar([]);
+          setSimilarError(payload?.error || 'Could not load similar drawings');
+        }
+      } catch {
+        if (cancelled) return;
+        setSimilar([]);
+        setSimilarError('Could not load similar drawings');
+      }
+    }
+
+    loadSimilar();
+    return () => {
+      cancelled = true;
+    };
+  }, [image?.instance_id]);
+
   if (!image) {
     return (
       <div className="panel metadata-panel">
@@ -57,6 +97,32 @@ export default function MetadataPanel({ image, drawingDisplayName, archiveSecond
       <ul className="meta-list">
         <li><strong>Why it is linked:</strong> related visual or textual patterns in the graph.</li>
       </ul>
+
+      <details className="meta-details" open>
+        <summary>Similar Drawings</summary>
+        {similarError ? (
+          <p className="subtle">{similarError}</p>
+        ) : similar.length === 0 ? (
+          <p className="subtle">No similar drawings found yet.</p>
+        ) : (
+          <div className="cluster-list">
+            {similar.map((item) => {
+              const title = item.title || item.instance_id || item.drawing_ref;
+              const year = item.year != null ? ` (${item.year})` : '';
+              return (
+                <button
+                  type="button"
+                  key={item.drawing_ref || item.instance_id}
+                  onClick={() => item.instance_id && onOpenDrawing?.(item.instance_id)}
+                  title={`Score: ${item.score}`}
+                >
+                  {title}{year}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </details>
     </div>
   );
 }

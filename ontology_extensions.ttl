@@ -1,0 +1,36 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# PROPOSED ONTOLOGY EXTENSIONS
+# Generated from analysis of 1 archival images
+# ═══════════════════════════════════════════════════════════════════════════
+
+# New Classes
+
+archdrw:Flexibility
+    a owl:Class ;
+    rdfs:label "Flexibility"@en ;
+    rdfs:comment "flexibility"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+archdrw:Connectedness
+    a owl:Class ;
+    rdfs:label "Connectedness"@en ;
+    rdfs:comment "connectedness"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+archdrw:Growth
+    a owl:Class ;
+    rdfs:label "Growth"@en ;
+    rdfs:comment "growth"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+archdrw:Containment
+    a owl:Class ;
+    rdfs:label "Containment"@en ;
+    rdfs:comment "containment"@en ;
+    rdfs:subClassOf archdrw:VisualElement .
+
+# New Properties
+
+archdrw:hasSpecificMethodologiesForUrbanPlanning
+    a owl:ObjectProperty ;
+    rdfs:label "hasSpecificMethodologiesForUrbanPlanning"@en ;
+    rdfs:comment "specific methodologies for urban planning"@en ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:VisualElement .

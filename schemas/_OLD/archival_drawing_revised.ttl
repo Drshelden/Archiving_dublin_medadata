@@ -1,0 +1,858 @@
+# =============================================================================
+# Archival Drawing Ontology
+# Version: 0.2  |  Date: 2026
+#
+# A vocabulary for describing architectural and urban design competition
+# drawings held in a digital archive.
+#
+# Extends Dublin Core Elements 1.1 with drawing-specific properties and
+# controlled value sets.
+#
+# This file defines TERMS ONLY — no specific drawings or image URLs are
+# referenced here.  It is designed to be collection-neutral and reusable
+# across different architecture archives.
+#
+# Namespace:  https://archivingresearch.org/schema/drawing#
+# Prefix:     archdrw:
+# =============================================================================
+
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix archdrw: <https://archivingresearch.org/schema/drawing#> .
+
+# ── Ontology declaration ────────────────────────────────────────────────────
+
+<https://archivingresearch.org/schema/drawing>
+    a owl:Ontology ;
+    rdfs:label   "Archival Drawing Ontology"@en ;
+    rdfs:comment """A vocabulary for describing scanned or digitised
+architectural, urban design, and competition drawings held in an archive.
+Extends Dublin Core (DC Elements 1.1) with drawing-specific properties and
+controlled value sets.  Designed to be collection-neutral and reusable."""@en ;
+    dc:creator   "Kelly" ;
+    dc:date      "2026" ;
+    owl:imports  <http://purl.org/dc/terms/> ;
+    owl:versionInfo "0.2" ;
+    rdfs:seeAlso  <http://purl.org/dc/terms/> .
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CLASSES
+# ═══════════════════════════════════════════════════════════════════════════
+
+archdrw:ArchivalItem
+    a owl:Class ;
+    rdfs:label   "Archival Item"@en ;
+    rdfs:comment "A generic record in the archival corpus, including drawings and text-based artefacts."@en .
+
+archdrw:ArchivalDrawing
+    a owl:Class ;
+    rdfs:label   "Archival Drawing"@en ;
+    rdfs:comment "A scanned or digitised architectural, urban design, or competition drawing held in an archive."@en ;
+    rdfs:subClassOf archdrw:ArchivalItem .
+
+archdrw:ArchivalText
+    a owl:Class ;
+    rdfs:label   "Archival Text Item"@en ;
+    rdfs:comment "A text-oriented archival image or textual document record in the corpus."@en ;
+    rdfs:subClassOf archdrw:ArchivalItem .
+
+archdrw:DrawingType
+    a owl:Class ;
+    rdfs:label   "Drawing Type"@en ;
+    rdfs:comment "The representational convention used in the drawing (e.g. plan, section, elevation, perspective)."@en .
+
+archdrw:VisualElement
+    a owl:Class ;
+    rdfs:label   "Visual Element"@en ;
+    rdfs:comment "A visually identifiable feature or motif actually present in the drawing (e.g. trees, water, human figures).  Only applied when the element is observable in the image."@en .
+
+archdrw:BuildingProgram
+    a owl:Class ;
+    rdfs:label   "Building Program"@en ;
+    rdfs:comment "The intended use or functional programme of the building or space depicted or implied in the drawing."@en .
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DRAWING TYPE VALUES
+# ═══════════════════════════════════════════════════════════════════════════
+
+archdrw:Plan
+    a            archdrw:DrawingType ;
+    rdfs:label   "Plan"@en ;
+    skos:definition "A horizontal cut through a building or site showing layout at a given level."@en .
+
+archdrw:SitePlan
+    a            archdrw:DrawingType ;
+    rdfs:label   "Site Plan"@en ;
+    skos:definition "A plan showing building(s) in relation to the surrounding site and landscape."@en .
+
+archdrw:FloorPlan
+    a            archdrw:DrawingType ;
+    rdfs:label   "Floor Plan"@en ;
+    skos:definition "A plan of a single storey showing room layout and circulation."@en .
+
+archdrw:Elevation
+    a            archdrw:DrawingType ;
+    rdfs:label   "Elevation"@en ;
+    skos:definition "An orthographic projection of a vertical exterior or interior face of a building."@en .
+
+archdrw:Section
+    a            archdrw:DrawingType ;
+    rdfs:label   "Section"@en ;
+    skos:definition "A vertical cut through a building or landscape revealing interior profiles or terrain."@en .
+
+archdrw:Perspective
+    a            archdrw:DrawingType ;
+    rdfs:label   "Perspective"@en ;
+    skos:definition "A drawing using perspective projection to simulate three-dimensional depth and spatial experience."@en .
+
+archdrw:Axonometric
+    a            archdrw:DrawingType ;
+    rdfs:label   "Axonometric"@en ;
+    skos:definition "A parallel projection in which all three spatial axes are shown without convergence."@en .
+
+archdrw:Isometric
+    a            archdrw:DrawingType ;
+    rdfs:label   "Isometric"@en ;
+    skos:definition "An axonometric projection in which the three principal axes are equally foreshortened."@en .
+
+archdrw:Detail
+    a            archdrw:DrawingType ;
+    rdfs:label   "Detail Drawing"@en ;
+    skos:definition "A large-scale drawing of a specific construction detail, junction, or component."@en .
+
+archdrw:ConceptDiagram
+    a            archdrw:DrawingType ;
+    rdfs:label   "Concept Diagram"@en ;
+    skos:definition "An abstract or schematic representation of a design idea, organisational strategy, or spatial concept."@en .
+
+archdrw:Collage
+    a            archdrw:DrawingType ;
+    rdfs:label   "Collage"@en ;
+    skos:definition "A composite image combining drawing, photography, and textural elements."@en .
+
+archdrw:Sketch
+    a            archdrw:DrawingType ;
+    rdfs:label   "Sketch"@en ;
+    skos:definition "A freehand exploratory drawing typically produced during early or conceptual design stages."@en .
+
+archdrw:RenderImage
+    a            archdrw:DrawingType ;
+    rdfs:label   "Rendered Image"@en ;
+    skos:definition "A photorealistic or semi-realistic visualisation of a designed space or building."@en .
+
+archdrw:ModelPhoto
+    a            archdrw:DrawingType ;
+    rdfs:label   "Model Photograph"@en ;
+    skos:definition "A photograph of a physical architectural or urban design model."@en .
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# VISUAL ELEMENT VALUES  (only applied when element is visible in the image)
+# ═══════════════════════════════════════════════════════════════════════════
+
+# — Landscape & nature ——————————————————————————————————————————————————————
+
+archdrw:Trees
+    a archdrw:VisualElement ; rdfs:label "Trees"@en .
+
+archdrw:Vegetation
+    a archdrw:VisualElement ; rdfs:label "Vegetation"@en .
+
+archdrw:Grass
+    a archdrw:VisualElement ; rdfs:label "Grass / Ground Cover"@en .
+
+archdrw:Water
+    a archdrw:VisualElement ; rdfs:label "Water (general)"@en .
+
+archdrw:River
+    a archdrw:VisualElement ; rdfs:label "River / Canal / Stream"@en .
+
+archdrw:Topography
+    a archdrw:VisualElement ; rdfs:label "Topography / Terrain"@en .
+
+archdrw:ContourLines
+    a archdrw:VisualElement ; rdfs:label "Contour Lines"@en .
+
+archdrw:Sky
+    a archdrw:VisualElement ; rdfs:label "Sky"@en .
+
+archdrw:Shadows
+    a archdrw:VisualElement ; rdfs:label "Shadows / Light Effects"@en .
+
+# — Human presence —————————————————————————————————————————————————————————
+
+archdrw:HumanFigures
+    a archdrw:VisualElement ; rdfs:label "Human Figures"@en .
+
+archdrw:Vehicles
+    a archdrw:VisualElement ; rdfs:label "Vehicles / Cars"@en .
+
+# — Built environment ——————————————————————————————————————————————————————
+
+archdrw:Streets
+    a archdrw:VisualElement ; rdfs:label "Streets / Roads / Paths"@en .
+
+archdrw:PublicSpace
+    a archdrw:VisualElement ; rdfs:label "Public Space / Plaza"@en .
+
+archdrw:Courtyard
+    a archdrw:VisualElement ; rdfs:label "Courtyard"@en .
+
+archdrw:Roof
+    a archdrw:VisualElement ; rdfs:label "Roof"@en .
+
+archdrw:Facade
+    a archdrw:VisualElement ; rdfs:label "Facade"@en .
+
+archdrw:GridPattern
+    a archdrw:VisualElement ; rdfs:label "Grid / Structural Grid"@en .
+
+archdrw:Structure
+    a archdrw:VisualElement ; rdfs:label "Structural Elements (columns, beams)"@en .
+
+archdrw:Staircase
+    a archdrw:VisualElement ; rdfs:label "Staircase"@en .
+
+archdrw:Bridge
+    a archdrw:VisualElement ; rdfs:label "Bridge / Overpass"@en .
+
+archdrw:Waterfront
+    a archdrw:VisualElement ; rdfs:label "Waterfront / Harbourside"@en .
+
+# — Drawing conventions ────────────────────────────────────────────────────
+
+archdrw:ScaleBar
+    a archdrw:VisualElement ; rdfs:label "Scale Bar"@en .
+
+archdrw:NorthArrow
+    a archdrw:VisualElement ; rdfs:label "North Arrow"@en .
+
+archdrw:TitleBlock
+    a archdrw:VisualElement ; rdfs:label "Title Block"@en .
+
+archdrw:TextAnnotation
+    a archdrw:VisualElement ; rdfs:label "Text Annotations / Labels"@en .
+
+archdrw:Hatching
+    a archdrw:VisualElement ; rdfs:label "Hatching / Fill Patterns"@en .
+
+archdrw:Dimensions
+    a archdrw:VisualElement ; rdfs:label "Dimension Lines"@en .
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# BUILDING PROGRAM VALUES
+# ═══════════════════════════════════════════════════════════════════════════
+
+archdrw:Residential
+    a archdrw:BuildingProgram ; rdfs:label "Residential"@en .
+
+archdrw:Housing
+    a archdrw:BuildingProgram ; rdfs:label "Housing"@en .
+
+archdrw:Commercial
+    a archdrw:BuildingProgram ; rdfs:label "Commercial"@en .
+
+archdrw:Civic
+    a archdrw:BuildingProgram ; rdfs:label "Civic / Public Institution"@en .
+
+archdrw:Cultural
+    a archdrw:BuildingProgram ; rdfs:label "Cultural"@en .
+
+archdrw:Educational
+    a archdrw:BuildingProgram ; rdfs:label "Educational"@en .
+
+archdrw:Industrial
+    a archdrw:BuildingProgram ; rdfs:label "Industrial"@en .
+
+archdrw:Religious
+    a archdrw:BuildingProgram ; rdfs:label "Religious"@en .
+
+archdrw:Landscape
+    a archdrw:BuildingProgram ; rdfs:label "Landscape / Open Space"@en .
+
+archdrw:UrbanDesign
+    a archdrw:BuildingProgram ; rdfs:label "Urban Design / Masterplan"@en .
+
+archdrw:Infrastructure
+    a archdrw:BuildingProgram ; rdfs:label "Infrastructure"@en .
+
+archdrw:MixedUse
+    a archdrw:BuildingProgram ; rdfs:label "Mixed Use"@en .
+
+archdrw:Hospitality
+    a archdrw:BuildingProgram ; rdfs:label "Hospitality / Tourism"@en .
+
+archdrw:Healthcare
+    a archdrw:BuildingProgram ; rdfs:label "Healthcare"@en .
+
+archdrw:Recreation
+    a archdrw:BuildingProgram ; rdfs:label "Recreation / Sport"@en .
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PROPERTIES
+# ═══════════════════════════════════════════════════════════════════════════
+
+archdrw:drawingType
+    a            owl:ObjectProperty ;
+    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:range   archdrw:DrawingType ;
+    rdfs:label   "drawing type"@en ;
+    rdfs:comment "The representational type of the drawing.  A single drawing may carry more than one type (e.g. both section and elevation)."@en .
+
+archdrw:hasVisualElement
+    a            owl:ObjectProperty ;
+    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:range   archdrw:VisualElement ;
+    rdfs:label   "has visual element"@en ;
+    rdfs:comment "A visual feature or motif that is actually present and identifiable in the drawing image.  Only assert this property when the element is observable."@en .
+
+archdrw:buildingProgram
+    a            owl:ObjectProperty ;
+    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:range   archdrw:BuildingProgram ;
+    rdfs:label   "building program"@en ;
+    rdfs:comment "The intended use or functional programme of the building or space depicted or implied in the drawing."@en .
+
+archdrw:medium
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "medium"@en ;
+    rdfs:comment "The drawing medium (e.g. pencil, ink, watercolour, digital, mixed_media, cad, print, collage_media)."@en .
+
+archdrw:colorPalette
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "color palette"@en ;
+    rdfs:comment "A dominant or notable hue visually present in the drawing.  Use one value per triple.  Only include colors that are clearly visible."@en .
+
+archdrw:drawingStyle
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "drawing style"@en ;
+    rdfs:comment "The expressive or technical register of the drawing (technical, freehand, diagrammatic, photorealistic, abstract, schematic)."@en .
+
+archdrw:siteContext
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "site context"@en ;
+    rdfs:comment "The spatial or geographic character of the project site (urban, suburban, rural, waterfront, hillside, coastal, wooded, flat)."@en .
+
+archdrw:projection
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalDrawing ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "projection"@en ;
+    rdfs:comment "The geometric projection system used (orthographic, perspective, axonometric, isometric, plan_oblique)."@en .
+
+archdrw:competition
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalItem ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "competition"@en ;
+    rdfs:comment "The architectural competition or archival collection this drawing belongs to."@en .
+
+archdrw:boardPage
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalItem ;
+    rdfs:range   xsd:integer ;
+    rdfs:label   "board page"@en ;
+    rdfs:comment "The page or board number within a multi-board competition entry."@en .
+
+archdrw:instanceId
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalItem ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "instance ID"@en ;
+    rdfs:comment "The unique identifier for this drawing record within the digital archive system."@en .
+
+archdrw:projectKey
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalItem ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "project key"@en ;
+    rdfs:comment "A normalized key used in source metadata to group related records by project or competition."@en ;
+    rdfs:subPropertyOf dcterms:relation .
+
+archdrw:sourceFileName
+    a            owl:DatatypeProperty ;
+    rdfs:domain  archdrw:ArchivalItem ;
+    rdfs:range   xsd:string ;
+    rdfs:label   "source file name"@en ;
+    rdfs:comment "Original source filename for the digitised asset."@en ;
+    rdfs:subPropertyOf dcterms:identifier .
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ALIGNMENT NOTE: Dublin Core terms used alongside this vocabulary
+# ═══════════════════════════════════════════════════════════════════════════
+#
+#   dc:title       — drawing or competition board title
+#   dc:creator     — architect, designer, or firm name (if identifiable)
+#   dc:subject     — array of descriptive keywords (what is visible / depicted)
+#   dc:description — a brief prose description of the drawing content
+#   dc:date        — year of competition or project
+#   dc:type        — "drawing" for all records in this collection
+#   dc:format      — MIME type of the digital scan (e.g. image/jpeg)
+#   dc:identifier  — same value as archdrw:instanceId
+#   dc:source      — URL of the original digitised image
+#   dc:coverage    — place name, city, or region (if identifiable)
+#   dc:rights      — rights statement
+#   dc:relation    — related project name or linked drawing
+#
+# ═══════════════════════════════════════════════════════════════════════════
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# EXTENSIONS FOR ANALYTICAL / URBAN DESIGN PRESENTATION BOARDS
+# Added to better describe boards like city-analysis panels containing
+# multi-panel layouts, map overlays, abstraction sequences, anomaly
+# corridors, and layered infrastructure/landscape relationships.
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ── Classes ───────────────────────────────────────────────────────────────
+
+archdrw:PresentationBoard
+    a owl:Class ;
+    rdfs:label "Presentation Board"@en ;
+    rdfs:comment "A composed competition or studio board containing multiple panels, diagrams, maps, text blocks, legends, and graphic annotations arranged on a single sheet."@en ;
+    rdfs:subClassOf archdrw:ArchivalDrawing .
+
+archdrw:BoardComponent
+    a owl:Class ;
+    rdfs:label "Board Component"@en ;
+    rdfs:comment "A discrete component within a presentation board, such as a panel, diagram, map, legend, text block, or inset."@en .
+
+archdrw:Panel
+    a owl:Class ;
+    rdfs:label "Panel"@en ;
+    rdfs:comment "A bounded visual region of a presentation board."@en ;
+    rdfs:subClassOf archdrw:BoardComponent .
+
+archdrw:InsetPanel
+    a owl:Class ;
+    rdfs:label "Inset Panel"@en ;
+    rdfs:comment "A secondary zoomed or embedded panel placed within or over a larger panel."@en ;
+    rdfs:subClassOf archdrw:Panel .
+
+archdrw:MapPanel
+    a owl:Class ;
+    rdfs:label "Map Panel"@en ;
+    rdfs:comment "A panel centered on cartographic or urban fabric representation."@en ;
+    rdfs:subClassOf archdrw:Panel .
+
+archdrw:DiagramPanel
+    a owl:Class ;
+    rdfs:label "Diagram Panel"@en ;
+    rdfs:comment "A panel presenting abstract, schematic, or process-oriented diagrams."@en ;
+    rdfs:subClassOf archdrw:Panel .
+
+archdrw:TextBlock
+    a owl:Class ;
+    rdfs:label "Text Block"@en ;
+    rdfs:comment "A prose or explanatory text region on a board."@en ;
+    rdfs:subClassOf archdrw:BoardComponent .
+
+archdrw:Legend
+    a owl:Class ;
+    rdfs:label "Legend"@en ;
+    rdfs:comment "A key explaining symbols, colors, or categories used on a board."@en ;
+    rdfs:subClassOf archdrw:BoardComponent .
+
+archdrw:AbstractionSequence
+    a owl:Class ;
+    rdfs:label "Abstraction Sequence"@en ;
+    rdfs:comment "A staged decomposition or transformation sequence, such as buildings → blocks → void → abstract figure."@en ;
+    rdfs:subClassOf archdrw:BoardComponent .
+
+archdrw:UrbanEntity
+    a owl:Class ;
+    rdfs:label "Urban Entity"@en ;
+    rdfs:comment "A city-scale object, structure, space, or region represented in a board."@en .
+
+archdrw:UrbanAnomaly
+    a owl:Class ;
+    rdfs:label "Urban Anomaly"@en ;
+    rdfs:comment "A non-conforming or exceptional urban condition identified analytically, such as a corridor, cut, discontinuity, or irregularity in the urban grid."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:VoidSpace
+    a owl:Class ;
+    rdfs:label "Void Space"@en ;
+    rdfs:comment "An extracted or identified absence, gap, residual corridor, or negative urban space."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:UrbanGridCondition
+    a owl:Class ;
+    rdfs:label "Urban Grid Condition"@en ;
+    rdfs:comment "A condition or reading of the street/grid structure, including regularity, irregularity, deviation, or compression."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:ConnectivitySystem
+    a owl:Class ;
+    rdfs:label "Connectivity System"@en ;
+    rdfs:comment "A circulation or linkage system represented in the board, including street, subway, rail, highway, landscape, or hydrological connections."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:InfrastructureLayer
+    a owl:Class ;
+    rdfs:label "Infrastructure Layer"@en ;
+    rdfs:comment "A represented infrastructural layer, such as underground transit, surface streets, or elevated transport."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:LandscapeLayer
+    a owl:Class ;
+    rdfs:label "Landscape Layer"@en ;
+    rdfs:comment "A represented ecological or open-space layer such as greenspace, waterfront, or topographic surface."@en ;
+    rdfs:subClassOf archdrw:UrbanEntity .
+
+archdrw:MapLayer
+    a owl:Class ;
+    rdfs:label "Map Layer"@en ;
+    rdfs:comment "A semantic layer in a map-based representation, such as water, greenspace, urban fabric, anomalies, or infrastructure."@en .
+
+archdrw:GraphicEncoding
+    a owl:Class ;
+    rdfs:label "Graphic Encoding"@en ;
+    rdfs:comment "A visual encoding used to distinguish information, such as highlight color, line weight, hatch, opacity, or tonal contrast."@en .
+
+# ── Additional drawing type values ────────────────────────────────────────
+
+archdrw:AnalyticalBoard
+    a archdrw:DrawingType ;
+    rdfs:label "Analytical Board"@en ;
+    skos:definition "A composed board devoted primarily to analysis, explanation, and synthesis rather than direct depiction alone."@en .
+
+archdrw:UrbanAnalysisMap
+    a archdrw:DrawingType ;
+    rdfs:label "Urban Analysis Map"@en ;
+    skos:definition "A map-based analytical drawing highlighting spatial patterns, systems, or exceptions at the urban scale."@en .
+
+archdrw:ProcessDiagram
+    a archdrw:DrawingType ;
+    rdfs:label "Process Diagram"@en ;
+    skos:definition "A diagram showing a sequence of analytical or design operations."@en .
+
+archdrw:ExplodedAbstraction
+    a archdrw:DrawingType ;
+    rdfs:label "Exploded Abstraction"@en ;
+    skos:definition "A staged abstraction separating a represented condition into components or levels of simplification."@en .
+
+# ── Additional visual element values ──────────────────────────────────────
+
+archdrw:UrbanFabric
+    a archdrw:VisualElement ; rdfs:label "Urban Fabric"@en .
+
+archdrw:BuildingFootprints
+    a archdrw:VisualElement ; rdfs:label "Building Footprints"@en .
+
+archdrw:Blocks
+    a archdrw:VisualElement ; rdfs:label "Urban Blocks"@en .
+
+archdrw:VoidDiagram
+    a archdrw:VisualElement ; rdfs:label "Void Diagram"@en .
+
+archdrw:AnomalyHighlight
+    a archdrw:VisualElement ; rdfs:label "Anomaly Highlight"@en .
+
+archdrw:LegendKey
+    a archdrw:VisualElement ; rdfs:label "Legend / Symbol Key"@en .
+
+archdrw:InsetFrame
+    a archdrw:VisualElement ; rdfs:label "Inset Frame / Callout Box"@en .
+
+archdrw:CalloutLine
+    a archdrw:VisualElement ; rdfs:label "Callout / Leader Line"@en .
+
+archdrw:TransitLine
+    a archdrw:VisualElement ; rdfs:label "Transit Line"@en .
+
+archdrw:RailInfrastructure
+    a archdrw:VisualElement ; rdfs:label "Rail Infrastructure"@en .
+
+archdrw:HighwayInfrastructure
+    a archdrw:VisualElement ; rdfs:label "Highway Infrastructure"@en .
+
+archdrw:Greenspace
+    a archdrw:VisualElement ; rdfs:label "Greenspace"@en .
+
+archdrw:ColorCodedOverlay
+    a archdrw:VisualElement ; rdfs:label "Color-Coded Overlay"@en .
+
+archdrw:SequentialDiagramSet
+    a archdrw:VisualElement ; rdfs:label "Sequential Diagram Set"@en .
+
+# ── Additional building / project program values ──────────────────────────
+
+archdrw:RegionalPlanning
+    a archdrw:BuildingProgram ; rdfs:label "Regional Planning"@en .
+
+archdrw:TransitInfrastructure
+    a archdrw:BuildingProgram ; rdfs:label "Transit Infrastructure"@en .
+
+archdrw:OpenSpaceNetwork
+    a archdrw:BuildingProgram ; rdfs:label "Open Space Network"@en .
+
+# ── Controlled instances for common layers / systems ──────────────────────
+
+archdrw:WaterLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Water Layer"@en .
+
+archdrw:GreenspaceLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Greenspace Layer"@en .
+
+archdrw:UrbanFabricLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Urban Fabric Layer"@en .
+
+archdrw:MajorAnomalyLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Major Anomaly Layer"@en .
+
+archdrw:MinorAnomalyLayer
+    a archdrw:MapLayer ;
+    rdfs:label "Minor Anomaly Layer"@en .
+
+archdrw:SurfaceStreetSystem
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Surface Street System"@en .
+
+archdrw:UndergroundTransitSystem
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Underground Transit System"@en .
+
+archdrw:ElevatedRailSystem
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Elevated Rail System"@en .
+
+archdrw:ElevatedHighwaySystem
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Elevated Highway System"@en .
+
+archdrw:GreenspaceNetwork
+    a archdrw:ConnectivitySystem ;
+    rdfs:label "Greenspace Network"@en .
+
+# ── Object properties ─────────────────────────────────────────────────────
+
+archdrw:hasComponent
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range archdrw:BoardComponent ;
+    rdfs:label "has component"@en ;
+    rdfs:comment "Relates a presentation board to one of its constituent components."@en ;
+    owl:inverseOf archdrw:isComponentOf .
+
+archdrw:isComponentOf
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range archdrw:PresentationBoard ;
+    rdfs:label "is component of"@en ;
+    rdfs:comment "Relates a component to the board of which it forms part."@en .
+
+archdrw:containsPanel
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range archdrw:Panel ;
+    rdfs:label "contains panel"@en ;
+    rdfs:comment "Specifies that a board contains a panel."@en ;
+    rdfs:subPropertyOf archdrw:hasComponent .
+
+archdrw:containsInset
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:Panel ;
+    rdfs:range archdrw:InsetPanel ;
+    rdfs:label "contains inset"@en ;
+    rdfs:comment "Specifies that a panel contains an inset or zoomed embedded panel."@en .
+
+archdrw:hasLegend
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range archdrw:Legend ;
+    rdfs:label "has legend"@en ;
+    rdfs:comment "Associates a board with a legend or key."@en ;
+    rdfs:subPropertyOf archdrw:hasComponent .
+
+archdrw:hasTextBlock
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range archdrw:TextBlock ;
+    rdfs:label "has text block"@en ;
+    rdfs:comment "Associates a board with an explanatory text region."@en ;
+    rdfs:subPropertyOf archdrw:hasComponent .
+
+archdrw:depictsUrbanEntity
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:UrbanEntity ;
+    rdfs:label "depicts urban entity"@en ;
+    rdfs:comment "Links a drawing to an urban-scale entity, condition, or system it depicts or analyses."@en .
+
+archdrw:identifiesAnomaly
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:UrbanAnomaly ;
+    rdfs:label "identifies anomaly"@en ;
+    rdfs:comment "Links a drawing to an anomaly explicitly identified in the analytical content."@en .
+
+archdrw:showsLayer
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:MapPanel ;
+    rdfs:range archdrw:MapLayer ;
+    rdfs:label "shows layer"@en ;
+    rdfs:comment "Indicates that a map panel contains or emphasizes a semantic map layer."@en .
+
+archdrw:highlightsSystem
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range archdrw:ConnectivitySystem ;
+    rdfs:label "highlights system"@en ;
+    rdfs:comment "Indicates a circulation, landscape, or infrastructure system made explicit in the drawing."@en .
+
+archdrw:abstractsFrom
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:AbstractionSequence ;
+    rdfs:range archdrw:UrbanEntity ;
+    rdfs:label "abstracts from"@en ;
+    rdfs:comment "Specifies the source condition or entity from which an abstraction sequence is derived."@en .
+
+archdrw:usesGraphicEncoding
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range archdrw:GraphicEncoding ;
+    rdfs:label "uses graphic encoding"@en ;
+    rdfs:comment "Relates a board component to the graphic device used to structure or distinguish information."@en .
+
+archdrw:hasSequenceStage
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:AbstractionSequence ;
+    rdfs:range archdrw:BoardComponent ;
+    rdfs:label "has sequence stage"@en ;
+    rdfs:comment "Relates an abstraction sequence to one of its stages."@en .
+
+archdrw:precedesStage
+    a owl:ObjectProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range archdrw:BoardComponent ;
+    rdfs:label "precedes stage"@en ;
+    rdfs:comment "Specifies ordered succession among stages within a diagrammatic sequence."@en .
+
+# ── Datatype properties ───────────────────────────────────────────────────
+
+archdrw:layoutType
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range xsd:string ;
+    rdfs:label "layout type"@en ;
+    rdfs:comment "The overall compositional strategy of the board, for example multi-panel, central-map-with-insets, columnar, or montage."@en .
+
+archdrw:boardOrientation
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:PresentationBoard ;
+    rdfs:range xsd:string ;
+    rdfs:label "board orientation"@en ;
+    rdfs:comment "The overall board orientation, typically portrait, landscape, or square."@en .
+
+archdrw:panelTitle
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range xsd:string ;
+    rdfs:label "panel title"@en ;
+    rdfs:comment "A title, heading, or caption printed within a board component."@en .
+
+archdrw:panelOrder
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range xsd:integer ;
+    rdfs:label "panel order"@en ;
+    rdfs:comment "Relative ordering of panels or sequence stages within the board composition."@en .
+
+archdrw:spatialScale
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range xsd:string ;
+    rdfs:label "spatial scale"@en ;
+    rdfs:comment "The principal geographic or design scale addressed, such as region, city, district, neighborhood, site, or building."@en .
+
+archdrw:analysisFocus
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range xsd:string ;
+    rdfs:label "analysis focus"@en ;
+    rdfs:comment "The main analytical concern of the board, such as connectivity, void extraction, infrastructure layering, urban morphology, or circulation."@en .
+
+archdrw:urbanContext
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range xsd:string ;
+    rdfs:label "urban context"@en ;
+    rdfs:comment "Urban context descriptors such as gridded city, river corridor, dense fabric, postindustrial landscape, or metropolitan core."@en .
+
+archdrw:hasTextTranscript
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:TextBlock ;
+    rdfs:range xsd:string ;
+    rdfs:label "has text transcript"@en ;
+    rdfs:comment "A transcription of prose or explanatory text visible on the board."@en .
+
+archdrw:legendLabel
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:Legend ;
+    rdfs:range xsd:string ;
+    rdfs:label "legend label"@en ;
+    rdfs:comment "A textual label used in a legend, such as major anomalies or minor anomalies."@en .
+
+archdrw:dominantShape
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:UrbanEntity ;
+    rdfs:range xsd:string ;
+    rdfs:label "dominant shape"@en ;
+    rdfs:comment "A coarse formal descriptor such as linear, branching, clustered, corridor-like, nodal, or fragmented."@en .
+
+archdrw:lineageStep
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:BoardComponent ;
+    rdfs:range xsd:string ;
+    rdfs:label "lineage step"@en ;
+    rdfs:comment "A named step within an abstraction lineage, for example buildings, blocks, void, or abstract."@en .
+
+archdrw:highlightColor
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:GraphicEncoding ;
+    rdfs:range xsd:string ;
+    rdfs:label "highlight color"@en ;
+    rdfs:comment "A named highlight color used semantically in the board, for example red for major anomalies, green for greenspace, blue for water."@en .
+
+archdrw:lineWeightCategory
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:GraphicEncoding ;
+    rdfs:range xsd:string ;
+    rdfs:label "line weight category"@en ;
+    rdfs:comment "A coarse descriptor of line emphasis such as fine, medium, bold, or heavy."@en .
+
+archdrw:usesColorSemantic
+    a owl:DatatypeProperty ;
+    rdfs:domain archdrw:ArchivalDrawing ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "uses color semantic"@en ;
+    rdfs:comment "Indicates whether color is used semantically to encode different classes of information rather than decoratively alone."@en .
+
+# ── Suggested modelling note ──────────────────────────────────────────────
+# For a board like the Philadelphia example, one would typically type the
+# item as archdrw:PresentationBoard and assign multiple drawingType values:
+# archdrw:AnalyticalBoard, archdrw:UrbanAnalysisMap, archdrw:ProcessDiagram,
+# and archdrw:ExplodedAbstraction as needed for individual panels.

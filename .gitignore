@@ -27,5 +27,8 @@ frontend/public/data/region_crops/
 
 # Build / logs
 *.log
+.env
+backend/.env
 
 scripts/enrich_log*.txt
+/data

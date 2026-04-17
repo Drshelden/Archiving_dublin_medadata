@@ -145,17 +145,17 @@ Return ONLY a valid JSON array.  No markdown fences.
 # Loaders / savers
 # ---------------------------------------------------------------------------
 
-def load_records() -> list[dict]:
-    with open(INPUT_FILE, encoding="utf-8") as f:
+def load_records(input_file: Path) -> list[dict]:
+    with open(input_file, encoding="utf-8") as f:
         data = json.load(f)
     return data if isinstance(data, list) else []
 
 
-def load_existing_enriched() -> dict[str, dict]:
+def load_existing_enriched(output_file: Path) -> dict[str, dict]:
     """Returns {instance_id: enriched_record} for already-processed records."""
-    if not OUTPUT_FILE.exists():
+    if not output_file.exists():
         return {}
-    with open(OUTPUT_FILE, encoding="utf-8") as f:
+    with open(output_file, encoding="utf-8") as f:
         existing = json.load(f)
     return {rec["instance_id"]: rec for rec in existing if rec.get("instance_id")}
 
@@ -181,11 +181,11 @@ def is_truly_enriched(rec: dict) -> bool:
     return False
 
 
-def save_enriched(enriched_by_id: dict[str, dict]) -> None:
+def save_enriched(enriched_by_id: dict[str, dict], output_file: Path) -> None:
     records = list(enriched_by_id.values())
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(records, f, indent=2, ensure_ascii=False)
-    print(f"  Saved {len(records)} records -> {OUTPUT_FILE}")
+    print(f"  Saved {len(records)} records -> {output_file}")
 
 # ---------------------------------------------------------------------------
 # Message builders
@@ -352,6 +352,10 @@ def merge_enrichment(original: dict, enrichment: dict) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Batch-enrich image metadata with OpenAI Vision")
+    parser.add_argument("--input-file",  default=str(INPUT_FILE),
+                        help=f"Input JSON file path (default: {INPUT_FILE})")
+    parser.add_argument("--output-file", default=str(OUTPUT_FILE),
+                        help=f"Output JSON file path (default: {OUTPUT_FILE})")
     parser.add_argument("--batch-size",  type=int,   default=3,
                         help="Images per OpenAI call (default 3 for vision, try 5 if stable)")
     parser.add_argument("--model",       default="gpt-4o-mini",
@@ -366,16 +370,23 @@ def main() -> None:
                         help="Seconds to wait between batches (default 0.4)")
     args = parser.parse_args()
 
+    input_file = Path(args.input_file)
+    output_file = Path(args.output_file)
+
+    if not input_file.exists():
+        print(f"ERROR: input file not found: {input_file}", file=sys.stderr)
+        sys.exit(1)
+
     api_key = os.getenv("OPENAI_API_KEY", "").strip()
     if not api_key and not args.dry_run:
         print("ERROR: OPENAI_API_KEY environment variable not set.", file=sys.stderr)
         sys.exit(1)
 
-    records = load_records()
+    records = load_records(input_file)
     total   = len(records)
-    print(f"Loaded {total} records from {INPUT_FILE}")
+    print(f"Loaded {total} records from {input_file}")
 
-    existing_enriched = load_existing_enriched()
+    existing_enriched = load_existing_enriched(output_file)
     truly_enriched_ids = {
         iid for iid, rec in existing_enriched.items()
         if is_truly_enriched(rec)
@@ -453,14 +464,14 @@ def main() -> None:
                         failed_ids.append(iid)
 
         # Save after every batch — progress is never lost
-        save_enriched(output_by_id)
+        save_enriched(output_by_id, output_file)
 
         if batch_idx < num_batches - 1:
             time.sleep(args.delay)
 
     print(f"\n{'=' * 60}")
     print(f"Done.  Enriched: {len(output_by_id) - len(failed_ids)}  |  Failed/original: {len(failed_ids)}")
-    print(f"Output -> {OUTPUT_FILE}")
+    print(f"Output -> {output_file}")
     if failed_ids:
         print(f"Failed instance IDs (first 5): {failed_ids[:5]}")
     print("\nNext step: run   python scripts/export_rdf.py   to generate archive_drawings.ttl")
