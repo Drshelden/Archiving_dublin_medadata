@@ -178,7 +178,7 @@ select {
 
 .three-col {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr) 340px;
+  grid-template-columns: 450px minmax(0, 1fr) 510px;
   gap: var(--space-3);
   padding: var(--space-3);
   flex: 1;
@@ -370,8 +370,13 @@ select {
   color: #7b7b7b;
 }
 
+.legend-item--off .legend-swatch {
+  background-color: #7b7b7b !important;
+}
+
 .legend-label {
-  color: var(--text-muted);
+  color: #111;
+  font-weight: 700;
 }
 
 .legend-count {

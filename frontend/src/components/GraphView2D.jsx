@@ -107,7 +107,6 @@ function runForceStep(cy, attractor, dampingValue, selectedNodeId, velocityById)
   const dampingStrength = clampDamping(dampingValue);
   const damping = 1 / (1 + dampingStrength * 0.6);
   const maxSpeed = 9;
-  const selectedCenterK = 0.26;
 
   const forceById = new Map();
   const nodeById = new Map();
@@ -174,19 +173,6 @@ function runForceStep(cy, attractor, dampingValue, selectedNodeId, velocityById)
     fs.y += pull * uy;
     ft.x -= pull * ux;
     ft.y -= pull * uy;
-  }
-
-  const extent = cy.extent();
-  const center = { x: (extent.x1 + extent.x2) / 2, y: (extent.y1 + extent.y2) / 2 };
-
-  if (selectedNodeId) {
-    const selectedNode = nodeById.get(selectedNodeId);
-    if (selectedNode && !selectedNode.grabbed()) {
-      const p = selectedNode.position();
-      const f = forceById.get(selectedNodeId);
-      f.x += (center.x - p.x) * selectedCenterK;
-      f.y += (center.y - p.y) * selectedCenterK;
-    }
   }
 
   for (let i = 0; i < n; i += 1) {
