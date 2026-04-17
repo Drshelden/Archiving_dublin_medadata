@@ -238,6 +238,7 @@ export default function GraphView2D({ nodeData, linkData, onNodeClick, selectedN
   const thumbSizeRef = useRef(thumbnailSizePx);
   const velocityByIdRef = useRef(new Map());
   const linkDataRef = useRef(linkData);
+  const savedPositionsRef = useRef(new Map());
 
   useEffect(() => {
     onZoomRef.current = onZoomLevelChange;
@@ -263,58 +264,19 @@ export default function GraphView2D({ nodeData, linkData, onNodeClick, selectedN
     thumbSizeRef.current = thumbnailSizePx;
   }, [thumbnailSizePx]);
 
-  // NODE REBUILD — only runs when nodes or renderMode change; preserves positions of surviving nodes.
   useEffect(() => {
-    if (!containerRef.current || !nodeData) return;
-
-    // Snapshot positions before destroying the old instance.
-    const savedPositions = new Map();
-    const existingCy = cyRef.current;
-    if (existingCy) {
-      existingCy.nodes().forEach((n) => {
-        savedPositions.set(n.id(), { ...n.position() });
-      });
-      existingCy.destroy();
-      cyRef.current = null;
-    }
+    if (!containerRef.current) return undefined;
 
     if (simulationRef.current) {
       cancelAnimationFrame(simulationRef.current);
       simulationRef.current = null;
     }
 
-    // Preserve velocities only for surviving nodes.
-    const oldVelocities = velocityByIdRef.current;
-    const newVelocities = new Map();
-    nodeData.forEach((n) => {
-      if (oldVelocities.has(n.id)) newVelocities.set(n.id, oldVelocities.get(n.id));
-    });
-    velocityByIdRef.current = newVelocities;
-
-    const cyNodes = nodeData.map((n) => {
-      const saved = savedPositions.get(n.id);
-      return {
-        data: { id: n.id, label: n.label, cluster: n.cluster, color: n.color, image: n.imageUrl || '' },
-        ...(saved ? { position: saved } : {}),
-      };
-    });
-
-    const currentLinks = linkDataRef.current || [];
-    const nodeIdSet = new Set(nodeData.map((n) => n.id));
-    const cyEdges = currentLinks
-      .map((e) => {
-        const sourceId = typeof e.source === 'object' ? e.source?.id : e.source;
-        const targetId = typeof e.target === 'object' ? e.target?.id : e.target;
-        if (!sourceId || !targetId || !nodeIdSet.has(sourceId) || !nodeIdSet.has(targetId)) return null;
-        return {
-          data: { id: e.id, source: sourceId, target: targetId, weight: e.weight, color: e.color },
-        };
-      })
-      .filter(Boolean);
+    velocityByIdRef.current = new Map();
 
     const cy = cytoscape({
       container: containerRef.current,
-      elements: [...cyNodes, ...cyEdges],
+      elements: [],
       wheelSensitivity: 0.2,
       userZoomingEnabled: true,
       userPanningEnabled: true,
@@ -376,9 +338,7 @@ export default function GraphView2D({ nodeData, linkData, onNodeClick, selectedN
           },
         },
       ],
-      layout: savedPositions.size === 0
-        ? { name: 'circle', fit: true, padding: 40 }
-        : { name: 'preset', fit: false },
+      layout: { name: 'preset', fit: false },
     });
 
     cy.on('mouseover', 'node', (evt) => evt.target.addClass('hovered'));
@@ -405,6 +365,7 @@ export default function GraphView2D({ nodeData, linkData, onNodeClick, selectedN
 
     cy.on('drag', 'node', (evt) => {
       constrainNodeToViewport(evt.target, cy);
+      savedPositionsRef.current.set(evt.target.id(), { ...evt.target.position() });
     });
 
     syncScreenSpaceSizing(cy, renderMode, thumbSizeRef.current);
@@ -413,35 +374,125 @@ export default function GraphView2D({ nodeData, linkData, onNodeClick, selectedN
     const tick = () => {
       if (!cy.destroyed()) {
         runForceStep(cy, attractorRef.current, dampingRef.current, selectedRef.current, velocityByIdRef.current);
+        cy.nodes().forEach((node) => {
+          savedPositionsRef.current.set(node.id(), { ...node.position() });
+        });
       }
       simulationRef.current = requestAnimationFrame(tick);
     };
     simulationRef.current = requestAnimationFrame(tick);
 
     cyRef.current = cy;
+
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       if (simulationRef.current) cancelAnimationFrame(simulationRef.current);
       cy.destroy();
       cyRef.current = null;
     };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // NODE SYNC — surgical add/remove so existing node positions are never touched.
+  // New nodes use cached positions when available; otherwise they start around the viewport edge.
+  useEffect(() => {
+    const cy = cyRef.current;
+    if (!cy || !nodeData) return;
+
+    cy.nodes().forEach((node) => {
+      savedPositionsRef.current.set(node.id(), { ...node.position() });
+    });
+
+    // ── Subsequent updates: surgical add/remove, never move existing nodes ──
+    const incomingIds = new Set(nodeData.map((n) => n.id));
+    const existingIds = new Set(cy.nodes().map((n) => n.id()));
+
+    // Remove nodes that are no longer in nodeData.
+    cy.nodes().forEach((n) => {
+      if (!incomingIds.has(n.id())) {
+        velocityByIdRef.current.delete(n.id());
+        cy.remove(n);
+      }
+    });
+
+    nodeData.forEach((n) => {
+      const existingNode = cy.getElementById(n.id);
+      if (existingNode.length) {
+        existingNode.data({
+          ...existingNode.data(),
+          label: n.label,
+          cluster: n.cluster,
+          color: n.color,
+          image: n.imageUrl || '',
+        });
+      }
+    });
+
+    // Add new nodes placed around the viewport edge.
+    const newNodes = nodeData.filter((n) => !existingIds.has(n.id));
+    if (newNodes.length > 0) {
+      const extent = cy.extent();
+      const cx = (extent.x1 + extent.x2) / 2;
+      const cy2 = (extent.y1 + extent.y2) / 2;
+      const rx = Math.max(100, (extent.x2 - extent.x1) / 2);
+      const ry = Math.max(100, (extent.y2 - extent.y1) / 2);
+      const step = (2 * Math.PI) / Math.max(newNodes.length, 1);
+      const offset = Math.random() * 2 * Math.PI;
+
+      const toAdd = newNodes.map((n, i) => {
+        const savedPosition = savedPositionsRef.current.get(n.id);
+        if (savedPosition) {
+          return {
+            group: 'nodes',
+            data: { id: n.id, label: n.label, cluster: n.cluster, color: n.color, image: n.imageUrl || '' },
+            position: savedPosition,
+          };
+        }
+
+        const angle = offset + i * step;
+        const jitter = () => (Math.random() - 0.5) * 20;
+        return {
+          group: 'nodes',
+          data: { id: n.id, label: n.label, cluster: n.cluster, color: n.color, image: n.imageUrl || '' },
+          position: { x: cx + rx * Math.cos(angle) + jitter(), y: cy2 + ry * Math.sin(angle) + jitter() },
+        };
+      });
+      cy.add(toAdd);
+    }
+
+    // Update renderMode-dependent styles.
+    cy.style()
+      .selector('node')
+      .style({
+        'background-image': renderMode === 'thumbnails' ? 'data(image)' : 'none',
+        shape: renderMode === 'thumbnails' ? 'round-rectangle' : 'ellipse',
+      })
+      .update();
+    syncScreenSpaceSizing(cy, renderMode, thumbSizeRef.current);
+
   }, [nodeData, renderMode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // EDGE SYNC — surgically replaces edges without touching node positions.
   useEffect(() => {
     linkDataRef.current = linkData;
+
     const cy = cyRef.current;
     if (!cy || cy.destroyed()) return;
+
     const nodeIdSet = new Set(cy.nodes().map((n) => n.id()));
     cy.edges().remove();
+
     const toAdd = (linkData || [])
       .map((e) => {
         const src = typeof e.source === 'object' ? e.source?.id : e.source;
         const tgt = typeof e.target === 'object' ? e.target?.id : e.target;
         if (!src || !tgt || !nodeIdSet.has(src) || !nodeIdSet.has(tgt)) return null;
-        return { group: 'edges', data: { id: e.id, source: src, target: tgt, weight: e.weight, color: e.color } };
+        return {
+          group: 'edges',
+          data: { id: e.id, source: src, target: tgt, weight: e.weight, color: e.color },
+        };
       })
       .filter(Boolean);
+
     if (toAdd.length) cy.add(toAdd);
   }, [linkData]);
 

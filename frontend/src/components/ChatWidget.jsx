@@ -234,9 +234,6 @@ export default function ChatWidget({
             placeholder="Describe what panels to retrieve… (Enter to send, Shift+Enter for newline)"
             rows={3}
           />
-          <button type="button" onClick={() => sendMessage()} disabled={isLoading || !input.trim()}>
-            Retrieve
-          </button>
         </div>
       </div>
     </div>

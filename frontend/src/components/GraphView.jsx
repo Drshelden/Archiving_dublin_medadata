@@ -127,13 +127,7 @@ export default function GraphView({
         </div>
       )}
 
-      {simplifiedMode && (
-        <p className="graph-progressive-hint subtle">
-          View mode: {thumbnailMode ? 'Thumbnails' : 'Dots + labels'} (press Tab to toggle). Single-click to select, drag to move.
-        </p>
-      )}
-
-      {progressiveHint && <p className="graph-progressive-hint subtle">{progressiveHint}</p>}
+      {progressiveHint && false && <p className="graph-progressive-hint subtle">{progressiveHint}</p>}
 
       {viewMode === '2d' ? (
         <GraphView2D

@@ -153,35 +153,16 @@ select {
 }
 
 .app-shell {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 420px;
-  gap: 0;
-}
-
-.app-left {
   display: flex;
   flex-direction: column;
-  padding: var(--space-4);
-  gap: var(--space-3);
   height: 100vh;
-  min-width: 0;
   overflow: hidden;
 }
 
-.app-right {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  height: 100vh;
-  overflow-y: auto;
-  border-left: 1px solid var(--border);
-  background: rgba(10, 8, 6, 0.6);
-}
-
 .topbar {
-  margin-bottom: 0;
+  padding: var(--space-3) var(--space-5);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .topbar h1 {
@@ -191,45 +172,48 @@ select {
 }
 
 .topbar p {
-  margin: var(--space-2) 0 0;
+  margin: var(--space-1) 0 0;
   color: var(--text-muted);
-  max-width: 980px;
 }
 
-.workspace {
+.three-col {
   display: grid;
-  grid-template-columns: var(--left-pane-width) minmax(0, 1fr);
-  gap: var(--space-4);
+  grid-template-columns: 300px minmax(0, 1fr) 340px;
+  gap: var(--space-3);
+  padding: var(--space-3);
   flex: 1;
   min-height: 0;
-  height: 0;
-  transition: grid-template-columns 260ms ease;
+  overflow: hidden;
 }
 
-.workspace-simplified {
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
-}
-
-.workspace-graph-only {
-  grid-template-columns: minmax(0, 1fr);
-  flex: 1;
-  min-height: 0;
-}
-
-.workspace--with-detail {
-  grid-template-columns: var(--left-pane-width) minmax(0, 1.2fr) minmax(var(--right-pane-min), var(--right-pane-max));
-}
-
-.workspace--graph-expanded {
-  grid-template-columns: var(--left-pane-width) minmax(0, 2fr);
-}
-
-.left-column {
+.col-left {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  max-height: calc(100vh - 110px);
-  overflow: auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.col-center {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.col-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.selected-image-panel .selected-image-preview {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  display: block;
+  object-fit: contain;
+  max-height: 280px;
 }
 
 .panel,
@@ -630,6 +614,7 @@ select {
   flex-direction: column;
   height: 100%;
   min-height: 0;
+  flex: 1;
 }
 
 .right-column {

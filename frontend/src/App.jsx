@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import GraphView from './components/GraphView';
 import Legend from './components/Legend';
 import ChatWidget from './components/ChatWidget';
+import MetadataPanel from './components/MetadataPanel';
 import { createArchiveResolver } from './utils/archiveNaming';
 import { getCompetitionColor } from './utils/colorSystem';
 
@@ -11,6 +12,8 @@ const RELATION_COLORS = [
   '#ef4444', '#0ea5e9', '#22c55e', '#eab308', '#a855f7', '#f97316',
   '#14b8a6', '#ec4899', '#6366f1', '#84cc16', '#fb7185', '#38bdf8',
 ];
+
+const MAX_VISIBLE_RELATION_KEYS = 10;
 
 const RELATION_DEFINITIONS = [
   {
@@ -238,7 +241,6 @@ export default function App() {
   const [thumbnailSizePx, setThumbnailSizePx] = useState(100);
   const [themeMode, setThemeMode] = useState('dark');
   const [relationVisibility, setRelationVisibility] = useState({});
-
   useEffect(() => {
     async function loadData() {
       const m = await loadJson('/data/image_metadata.json');
@@ -398,10 +400,9 @@ export default function App() {
     const edges = Array.isArray(activeGraph?.edges) ? activeGraph.edges : [];
 
     const relationCounts = new Map();
-    const relationColorMap = {};
     const relationLabelMap = {};
 
-    const enrichedEdges = edges.map((edge, idx) => {
+    const baseEdges = edges.map((edge, idx) => {
       const sourceNodeId = String(edge.source || '').trim();
       const targetNodeId = String(edge.target || '').trim();
 
@@ -420,27 +421,39 @@ export default function App() {
       const relation = inferRelationForEdge(sourceRecord, targetRecord);
       const relationKey = relation.relationKey;
       const relationLabel = relation.relationLabel;
-      const matchedRelationKeys = relation.matchedRelationKeys || [relationKey];
-      const matchedRelationLabels = relation.matchedRelationLabels || [{ relationKey, relationLabel }];
 
       relationCounts.set(relationKey, (relationCounts.get(relationKey) || 0) + 1);
-      matchedRelationKeys.forEach((key) => {
-        if (!relationColorMap[key]) {
-          relationColorMap[key] = colorForRelation(key);
-        }
-      });
-      matchedRelationLabels.forEach(({ relationKey: key, relationLabel: label }) => {
-        relationLabelMap[key] = label;
-      });
+      relationLabelMap[relationKey] = relationLabel;
 
       return {
         ...edge,
         id: edge.id || `edge_${idx}`,
         connection_types: [relationKey],
-        matched_relation_keys: matchedRelationKeys,
-        color: relationColorMap[relationKey],
+        relation_key: relationKey,
+        color: null,
       };
     });
+
+    const topRelationKeys = Array.from(relationCounts.entries())
+      .sort((a, b) => {
+        const countDiff = b[1] - a[1];
+        if (countDiff !== 0) return countDiff;
+        const aLabel = relationLabelMap[a[0]] || a[0];
+        const bLabel = relationLabelMap[b[0]] || b[0];
+        return aLabel.localeCompare(bLabel);
+      })
+      .slice(0, MAX_VISIBLE_RELATION_KEYS)
+      .map(([key]) => key);
+
+    const relationColorMap = {};
+    topRelationKeys.forEach((key, idx) => {
+      relationColorMap[key] = RELATION_COLORS[idx % RELATION_COLORS.length];
+    });
+
+    const enrichedEdges = baseEdges.map((edge) => ({
+      ...edge,
+      color: relationColorMap[edge.relation_key] || null,
+    }));
 
     return {
       nodes,
@@ -448,51 +461,29 @@ export default function App() {
       relationCounts,
       relationColorMap,
       relationLabelMap,
+      topRelationKeys,
     };
   }, [activeGraph, panelNodeToInstance, metadataById, panelNodeDataById]);
 
   const relationStats = useMemo(() => {
-    const selected = String(selectedNodeId || '').trim();
-    const relevantEdges = selected
-      ? relationGraph.edges.filter((edge) => {
-        const sourceId = String(edge.source || '').trim();
-        const targetId = String(edge.target || '').trim();
-        return sourceId === selected || targetId === selected;
-      })
-      : relationGraph.edges;
-
-    const counts = new Map();
-
-    relevantEdges.forEach((edge) => {
-      const keys = Array.isArray(edge.matched_relation_keys) && edge.matched_relation_keys.length
-        ? edge.matched_relation_keys
-        : [edge.connection_types?.[0] || 'relation:unknown'];
-
-      keys.forEach((key) => {
-        counts.set(key, (counts.get(key) || 0) + 1);
-      });
+    return (relationGraph.topRelationKeys || []).map((key) => {
+      const count = relationGraph.relationCounts.get(key) || 0;
+      const fallbackEqIdx = key.indexOf('=');
+      const fallbackLabel = fallbackEqIdx >= 0
+        ? `${key.slice(0, fallbackEqIdx)}: ${labelToken(key.slice(fallbackEqIdx + 1))}`
+        : key;
+      return {
+        key,
+        count,
+        color: relationGraph.relationColorMap[key] || colorForRelation(key),
+        label: relationGraph.relationLabelMap[key] || fallbackLabel,
+        enabled: relationVisibility[key] !== false,
+      };
     });
-
-    return Array.from(counts.entries())
-      .map(([key, count]) => {
-        const fallbackEqIdx = key.indexOf('=');
-        const fallbackLabel = fallbackEqIdx >= 0
-          ? `${key.slice(0, fallbackEqIdx)}: ${labelToken(key.slice(fallbackEqIdx + 1))}`
-          : key;
-        return {
-          key,
-          count,
-          color: relationGraph.relationColorMap[key] || colorForRelation(key),
-          label: relationGraph.relationLabelMap[key] || fallbackLabel,
-          enabled: relationVisibility[key] !== false,
-        };
-      })
-      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
-      .slice(0, 20);
-  }, [relationGraph, selectedNodeId, relationVisibility]);
+  }, [relationGraph, relationVisibility]);
 
   useEffect(() => {
-    const keys = Object.keys(relationGraph.relationColorMap || {});
+    const keys = relationGraph.topRelationKeys || [];
     setRelationVisibility((prev) => {
       const next = { ...prev };
       let changed = false;
@@ -517,12 +508,11 @@ export default function App() {
 
   const visibleRelationEdges = useMemo(() => {
     return relationGraph.edges.filter((edge) => {
-      const keys = Array.isArray(edge.matched_relation_keys) && edge.matched_relation_keys.length
-        ? edge.matched_relation_keys
-        : [edge.connection_types?.[0] || 'relation:unknown'];
-      return keys.every((key) => relationVisibility[key] !== false);
+      const key = edge.connection_types?.[0] || 'relation:unknown';
+      if (!relationGraph.topRelationKeys?.includes(key)) return false;
+      return relationVisibility[key] !== false;
     });
-  }, [relationGraph.edges, relationVisibility]);
+  }, [relationGraph.edges, relationGraph.topRelationKeys, relationVisibility]);
 
   const toggleRelationVisibility = (relationKey) => {
     setRelationVisibility((prev) => ({
@@ -567,84 +557,84 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <div className="app-left">
-        <header className="topbar">
-          <h1>Interconnected Drawing Archive</h1>
-          <p>
-            Start with chat. The graph is intentionally empty until a query runs. Press Tab to toggle node labels and thumbnail view.
-          </p>
-        </header>
+      <header className="topbar">
+        <h1>Interconnected Drawing Archive</h1>
+        <p>
+          Start with chat. The graph is intentionally empty until a query runs. Press Tab to toggle node labels and thumbnail view.
+        </p>
+      </header>
 
-        <section className="workspace workspace-graph-only">
-          <main className="graph-column">
-            <GraphView
-              graph={{ nodes: relationGraph.nodes, edges: visibleRelationEdges }}
-              filteredEdges={visibleRelationEdges}
-              onNodeClick={openNode}
-              selectedNodeId={selectedNodeId}
-              nodeLabelById={drawingNameByInstanceId}
-              nodeColorById={nodeColorById}
-              metadataById={metadataById}
-              viewMode={graphViewMode}
-              setViewMode={setGraphViewMode}
-              onZoomLevelChange={setGraphZoomLevel}
-              progressiveHint={relationGraph.nodes.length === 0 ? 'No results yet. Submit a chat query to populate the graph.' : `Showing ${relationGraph.nodes.length} retrieved panels / ${visibleRelationEdges.length} visible relations at zoom ${graphZoomLevel.toFixed(2)}.`}
-              simplifiedMode
-              thumbnailMode={thumbnailMode}
-              attractor={attractor}
-              damping={damping}
-              thumbnailSizePx={thumbnailSizePx}
-            />
-          </main>
-        </section>
-      </div>
-
-      <aside className="app-right">
-        <ChatWidget
-          selectedImage={selectedImage}
-          archiveSecondaryLine={selectedImage ? archiveResolver.getSecondaryLine(selectedImage) : null}
-          totalDrawings={metadata.length}
-          onOpenDrawing={openNode}
-          searchDrawings={searchDrawings}
-          onApplyPanelGraph={applyPanelGraphFromChat}
-          minPanels={5}
-          maxPanels={50}
-          panelReturnCount={panelReturnCount}
-          setPanelReturnCount={setPanelReturnCount}
-          attractor={attractor}
-          setAttractor={setAttractor}
-          damping={damping}
-          setDamping={setDamping}
-          thumbnailSizePx={thumbnailSizePx}
-          setThumbnailSizePx={setThumbnailSizePx}
-          themeMode={themeMode}
-          setThemeMode={setThemeMode}
-        />
-
-        <Legend
-          title="Panel Relations Key"
-          relationStats={relationStats}
-          onToggleRelation={toggleRelationVisibility}
-        />
-
-        {(selectedPanelData || selectedImage) && (
-          <div className="selected-item-data">
-            <h4>Selected Item Data</h4>
-            {selectedPanelData && (
-              <>
-                <p className="selected-item-data__section-label">Panel</p>
-                <pre>{JSON.stringify(selectedPanelData, null, 2)}</pre>
-              </>
-            )}
-            {selectedImage && (
-              <>
-                <p className="selected-item-data__section-label">Image Metadata</p>
-                <pre>{JSON.stringify(selectedImage, null, 2)}</pre>
-              </>
+      <div className="three-col">
+        <div className="col-left">
+          <div className="panel selected-image-panel">
+            <h3>Selected Drawing</h3>
+            {selectedImage ? (
+              <img
+                src={selectedImage.url}
+                alt={selectedImage.title || 'Selected drawing'}
+                className="selected-image-preview"
+              />
+            ) : (
+              <p className="subtle">Select a drawing in the graph to view it here.</p>
             )}
           </div>
-        )}
-      </aside>
+          <MetadataPanel
+            image={selectedImage}
+            drawingDisplayName={selectedImage ? drawingNameByInstanceId[selectedImage.instance_id] : null}
+            archiveSecondaryLine={selectedImage ? archiveResolver.getSecondaryLine(selectedImage) : null}
+            onOpenDrawing={openNode}
+          />
+        </div>
+
+        <main className="col-center graph-column">
+          <GraphView
+            graph={{ nodes: relationGraph.nodes, edges: visibleRelationEdges }}
+            filteredEdges={visibleRelationEdges}
+            onNodeClick={openNode}
+            selectedNodeId={selectedNodeId}
+            nodeLabelById={drawingNameByInstanceId}
+            nodeColorById={nodeColorById}
+            metadataById={metadataById}
+            viewMode={graphViewMode}
+            setViewMode={setGraphViewMode}
+            onZoomLevelChange={setGraphZoomLevel}
+            progressiveHint={relationGraph.nodes.length === 0 ? 'No results yet. Submit a chat query to populate the graph.' : `Showing ${relationGraph.nodes.length} retrieved panels / ${visibleRelationEdges.length} visible relations at zoom ${graphZoomLevel.toFixed(2)}.`}
+            simplifiedMode
+            thumbnailMode={thumbnailMode}
+            attractor={attractor}
+            damping={damping}
+            thumbnailSizePx={thumbnailSizePx}
+          />
+        </main>
+
+        <div className="col-right">
+          <Legend
+            title="Panel Relations Key"
+            relationStats={relationStats}
+            onToggleRelation={toggleRelationVisibility}
+          />
+          <ChatWidget
+            selectedImage={selectedImage}
+            archiveSecondaryLine={selectedImage ? archiveResolver.getSecondaryLine(selectedImage) : null}
+            totalDrawings={metadata.length}
+            onOpenDrawing={openNode}
+            searchDrawings={searchDrawings}
+            onApplyPanelGraph={applyPanelGraphFromChat}
+            minPanels={5}
+            maxPanels={50}
+            panelReturnCount={panelReturnCount}
+            setPanelReturnCount={setPanelReturnCount}
+            attractor={attractor}
+            setAttractor={setAttractor}
+            damping={damping}
+            setDamping={setDamping}
+            thumbnailSizePx={thumbnailSizePx}
+            setThumbnailSizePx={setThumbnailSizePx}
+            themeMode={themeMode}
+            setThemeMode={setThemeMode}
+          />
+        </div>
+      </div>
     </div>
   );
 }
